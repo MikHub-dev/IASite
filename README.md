@@ -1,0 +1,40 @@
+# IASite
+
+Cinquième site de la famille FamZakSites, sur le modèle de QuantumSite : le parcours IA de A à Z et le savoir qui se cache derrière, du micro-GPT de 1,3 million de réglages jusqu'à l'agent qui utilise des outils via le MCP.
+
+## Contenu
+
+- **Fondations** : GPT, la fiche produit, le Transformer en une page.
+- **Le parcours en 15 étapes** : du texte brut au modèle qui écrit (étapes 1 à 13, réalisées et mesurées avec `micro_gpt.py`), puis à l'assistant et à l'agent (étapes 14 et 15).
+- **Chapitres illustrés** : données et tokens, le réseau, apprentissage, génération, assistant, agents et MCP, physique et hasard, échelles.
+- **Ressources** : frise historique, fiches mathématiques, physiques et informatiques, dictionnaire de 143 notions, repères chiffrés, choix d'une approche selon le volume de données, extraits du code.
+- **Parcours LLM : comprendre l'attention** (8 étapes, calculateur Q·K·V, softmax, masque causal, têtes, quiz).
+- **Ateliers** : tokenisation BPE, compteur de réglages, température et top-p, budget LoRA.
+
+## Lecture en planches
+
+Comme la frise de QuantumSite, chaque page tient dans l'écran, sans ascenseur vertical. On passe d'une planche à l'autre avec la barre du bas ou les flèches ← → du clavier ; au bout d'une page, la flèche mène à la page suivante. Touche `/` : rechercher. Échap : fermer.
+
+- Le contenu est réparti automatiquement en planches. Le texte des vignettes a une taille fixe (facteur 1,32 de la planche de référence) ; les planches sans vignette s'agrandissent pour remplir l'écran.
+- La planche occupe toute la largeur entre le menu vertical et le bord droit.
+- Dans les listes groupées (dictionnaire, fiches, parcours), le titre de chaque famille est une vignette placée dans la grille, pour que les familles s'enchaînent sans couper la ligne. Les frises restent en liste verticale.
+
+## Fichiers
+
+| Fichier | Rôle |
+| --- | --- |
+| `index.html` | Le site complet, en un seul fichier autonome (généré). |
+| `src/1_head.html` | En-tête et feuille de style. |
+| `src/2_body.html` | Pages et planches. |
+| `src/2b_attention.html` | Pages du parcours « comprendre l'attention ». |
+| `src/3_data_steps.js` | Les 15 étapes et leurs repères. |
+| `src/4_data_lex.js` | Lexique, frise, analogies physiques, approches, sections du code. |
+| `src/5_app.js` | Moteur de planches, navigation, recherche, ateliers. |
+| `src/5b_attention.js` | Outils interactifs du parcours « attention » et démarrage. |
+| `build.sh` | Reconstruit `index.html` à partir de `src/`. |
+
+Après une modification dans `src/`, lancer `./build.sh` puis committer `index.html`.
+
+## Sources
+
+Projet « IA Level 1 » : *Micro-GPT en 15 étapes : le schéma*, *parcours_micro_gpt.docx*, *Micro-GPT : les notions du parcours et à quoi elles servent*, l'export de la conversation « Construire une IA, du micro-GPT au MCP », *Quelle approche IA selon le volume de données ?* et *Parcours LLM : comprendre l'attention*.
