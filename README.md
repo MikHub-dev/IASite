@@ -32,6 +32,7 @@ Comme la frise de QuantumSite, chaque page tient dans l'écran, sans ascenseur v
 | `src/5_app.js` | Moteur de planches, navigation, recherche, ateliers. |
 | `src/5b_attention.js` | Outils interactifs du parcours « attention » et démarrage. |
 | `build.sh` | Reconstruit `index.html` à partir de `src/`. |
+| `robots.txt` | Interdit l'indexation, comme sur le portail (la balise `meta robots` de `index.html` fait de même). |
 
 Après une modification dans `src/`, lancer `./build.sh` puis committer `index.html`.
 
