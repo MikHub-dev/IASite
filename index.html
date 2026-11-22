@@ -60,11 +60,11 @@ nav.main a.on{color:#fff;background:rgba(61,216,255,.14)}
 /* ---------- mise en page ---------- */
 .layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 78px)}
 aside.side{background:rgba(3,8,18,.92);border-right:1px solid var(--line);padding:26px 0;position:sticky;top:78px;height:calc(100vh - 78px);overflow:auto}
-aside.side a{display:block;padding:13px 25px;color:#c9d6ec;font-size:1.02rem;cursor:pointer;border-left:3px solid transparent}
+aside.side a{display:block;padding:13px 20px;color:#c9d6ec;font-size:.9rem;cursor:pointer;border-left:3px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 aside.side a:hover{color:#fff;background:rgba(255,255,255,.03);text-decoration:none}
 aside.side a.on{color:#fff;border-left-color:var(--cy);background:rgba(61,216,255,.06)}
 aside.side .sep{height:1px;background:var(--line);margin:14px 22px}
-aside.side small{display:block;padding:6px 25px;color:var(--dim);font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase}
+aside.side small{display:block;padding:6px 23px;color:var(--dim);font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase}
 main{padding:22px 34px 60px;min-width:0}
 section.page{display:none;animation:fade .35s ease}
 section.page.on{display:block}
@@ -311,7 +311,7 @@ footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);color:v
 <div class="layout">
 <aside class="side" id="sidenav">
   <a data-go="frise">Frise</a>
-  <a data-go="parcours">Le parcours (15 étapes)</a>
+  <a data-go="parcours">Construire une IA de 0</a>
   <a data-go="fmaths">Fiches Mathématiques</a>
   <a data-go="fphys">Fiches Physiques</a>
   <a data-go="finfo">Fiches Informatiques</a>
@@ -1616,7 +1616,8 @@ function show(id){
 }
 
 /* ---------- barre de navigation interne (collante) sur chaque page ---------- */
-const TOC_SKIP = ['p-accueil','p-attention','p-dico','p-frise'];   // accueil : page vitrine ; attention : barre propre ; dico, frise : filtres collants
+const TOC_H2_ONLY = ['p-fphys','p-fmaths','p-finfo'];   // pages dont la barre ne garde que les grandes parties (h2)
+const TOC_SKIP = ['p-accueil','p-attention','p-dico','p-frise','p-approche'];   // accueil : page vitrine ; attention : barre propre ; dico, frise : filtres collants
 function tocLabel(el){
   if(el.classList.contains('pgroup')){ const k = el.querySelector('.fk'), b = el.querySelector('.pgl b');
     return (k ? k.textContent.match(/\d+/)[0] + ' · ' : '') + (b ? b.textContent : ''); }
@@ -1635,7 +1636,8 @@ function buildToc(sec){
   const lvl1 = [...sec.querySelectorAll('h2, .famtitle, .pgroup')].filter(inSec);
   const all  = [...sec.querySelectorAll('h2, .famtitle, .pgroup, h3')].filter(el => inSec(el) && !(el.parentElement && el.parentElement.closest('.pgroup .lex, .famtitle')));
   let t;
-  if(all.length <= 14) t = all;
+  if(TOC_H2_ONLY.includes(sec.id)) t = all.filter(el => el.tagName === 'H2');
+  else if(all.length <= 14) t = all;
   else {                                   // trop de titres : les grandes parties, plus les cartes situées avant la première
     const first = lvl1[0];
     t = all.filter(el => lvl1.includes(el) || (el.tagName === 'H3' && first && (first.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_PRECEDING)));
@@ -1815,10 +1817,10 @@ drawDico();
 $$('[data-domain]').forEach(c=>{
   const d = c.dataset.domain;
   let top = '';
-  if(d==='m') top = `<div class="sectitle"><h2>Étape par étape</h2><span>le lien avec les maths de chaque fiche</span></div><div class="grid g3">${STEPS.map(s=>`<div class="card" data-step="${s.n}" style="cursor:pointer"><div class="kicker">Étape ${s.n}</div><h3>${s.t}</h3><p class="note" style="margin:0">${s.math}</p></div>`).join('')}</div>`;
-  if(d==='i') top = `<div class="sectitle"><h2>Étape par étape</h2><span>le côté informatique de chaque fiche</span></div><div class="grid g3">${STEPS.map(s=>`<div class="card" data-step="${s.n}" style="cursor:pointer"><div class="kicker" style="color:var(--gr)">Étape ${s.n}</div><h3>${s.t}</h3><p class="note" style="margin:0">${s.info}</p></div>`).join('')}</div>`;
-  if(d==='p') top = `<div class="grid g3">${PHYS.map(p=>`<div class="card"><h3 class="${p[1]}">${p[0]}</h3><div class="formula">${p[2]}</div><p class="note" style="margin:0">${p[3]}</p></div>`).join('')}</div>`;
-  c.innerHTML = top + `<div class="sectitle"><h2>Les notions</h2></div>` + lexGrouped(LEX.filter(l=>l[2].includes(d)));
+  if(d==='m') top = `<div class="sectitle"><h2>Les étapes</h2><span>le lien avec les maths de chaque fiche</span></div><div class="grid g3">${STEPS.map(s=>`<div class="card" data-step="${s.n}" style="cursor:pointer"><div class="kicker">Étape ${s.n}</div><h3>${s.t}</h3><p class="note" style="margin:0">${s.math}</p></div>`).join('')}</div>`;
+  if(d==='i') top = `<div class="sectitle"><h2>Les étapes</h2><span>le côté informatique de chaque fiche</span></div><div class="grid g3">${STEPS.map(s=>`<div class="card" data-step="${s.n}" style="cursor:pointer"><div class="kicker" style="color:var(--gr)">Étape ${s.n}</div><h3>${s.t}</h3><p class="note" style="margin:0">${s.info}</p></div>`).join('')}</div>`;
+  if(d==='p') top = `<div class="sectitle"><h2>Formules de la Physique</h2><span>de la physique au micro-GPT</span></div><div class="grid g3">${PHYS.map(p=>`<div class="card"><h3 class="${p[1]}">${p[0]}</h3><div class="formula">${p[2]}</div><p class="note" style="margin:0">${p[3]}</p></div>`).join('')}</div>`;
+  c.innerHTML = top + `<div class="sectitle"><h2>${d==='p'?'Notions':'Les notions'}</h2></div>` + lexGrouped(LEX.filter(l=>l[2].includes(d)));
 });
 
 /* ---------- recherche ---------- */

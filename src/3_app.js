@@ -506,7 +506,8 @@ function show(id){
 }
 
 /* ---------- barre de navigation interne (collante) sur chaque page ---------- */
-const TOC_SKIP = ['p-accueil','p-attention','p-dico','p-frise'];   // accueil : page vitrine ; attention : barre propre ; dico, frise : filtres collants
+const TOC_H2_ONLY = ['p-fphys','p-fmaths','p-finfo'];   // pages dont la barre ne garde que les grandes parties (h2)
+const TOC_SKIP = ['p-accueil','p-attention','p-dico','p-frise','p-approche'];   // accueil : page vitrine ; attention : barre propre ; dico, frise : filtres collants
 function tocLabel(el){
   if(el.classList.contains('pgroup')){ const k = el.querySelector('.fk'), b = el.querySelector('.pgl b');
     return (k ? k.textContent.match(/\d+/)[0] + ' · ' : '') + (b ? b.textContent : ''); }
@@ -525,7 +526,8 @@ function buildToc(sec){
   const lvl1 = [...sec.querySelectorAll('h2, .famtitle, .pgroup')].filter(inSec);
   const all  = [...sec.querySelectorAll('h2, .famtitle, .pgroup, h3')].filter(el => inSec(el) && !(el.parentElement && el.parentElement.closest('.pgroup .lex, .famtitle')));
   let t;
-  if(all.length <= 14) t = all;
+  if(TOC_H2_ONLY.includes(sec.id)) t = all.filter(el => el.tagName === 'H2');
+  else if(all.length <= 14) t = all;
   else {                                   // trop de titres : les grandes parties, plus les cartes situées avant la première
     const first = lvl1[0];
     t = all.filter(el => lvl1.includes(el) || (el.tagName === 'H3' && first && (first.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_PRECEDING)));
@@ -705,10 +707,10 @@ drawDico();
 $$('[data-domain]').forEach(c=>{
   const d = c.dataset.domain;
   let top = '';
-  if(d==='m') top = `<div class="sectitle"><h2>Étape par étape</h2><span>le lien avec les maths de chaque fiche</span></div><div class="grid g3">${STEPS.map(s=>`<div class="card" data-step="${s.n}" style="cursor:pointer"><div class="kicker">Étape ${s.n}</div><h3>${s.t}</h3><p class="note" style="margin:0">${s.math}</p></div>`).join('')}</div>`;
-  if(d==='i') top = `<div class="sectitle"><h2>Étape par étape</h2><span>le côté informatique de chaque fiche</span></div><div class="grid g3">${STEPS.map(s=>`<div class="card" data-step="${s.n}" style="cursor:pointer"><div class="kicker" style="color:var(--gr)">Étape ${s.n}</div><h3>${s.t}</h3><p class="note" style="margin:0">${s.info}</p></div>`).join('')}</div>`;
-  if(d==='p') top = `<div class="grid g3">${PHYS.map(p=>`<div class="card"><h3 class="${p[1]}">${p[0]}</h3><div class="formula">${p[2]}</div><p class="note" style="margin:0">${p[3]}</p></div>`).join('')}</div>`;
-  c.innerHTML = top + `<div class="sectitle"><h2>Les notions</h2></div>` + lexGrouped(LEX.filter(l=>l[2].includes(d)));
+  if(d==='m') top = `<div class="sectitle"><h2>Les étapes</h2><span>le lien avec les maths de chaque fiche</span></div><div class="grid g3">${STEPS.map(s=>`<div class="card" data-step="${s.n}" style="cursor:pointer"><div class="kicker">Étape ${s.n}</div><h3>${s.t}</h3><p class="note" style="margin:0">${s.math}</p></div>`).join('')}</div>`;
+  if(d==='i') top = `<div class="sectitle"><h2>Les étapes</h2><span>le côté informatique de chaque fiche</span></div><div class="grid g3">${STEPS.map(s=>`<div class="card" data-step="${s.n}" style="cursor:pointer"><div class="kicker" style="color:var(--gr)">Étape ${s.n}</div><h3>${s.t}</h3><p class="note" style="margin:0">${s.info}</p></div>`).join('')}</div>`;
+  if(d==='p') top = `<div class="sectitle"><h2>Formules de la Physique</h2><span>de la physique au micro-GPT</span></div><div class="grid g3">${PHYS.map(p=>`<div class="card"><h3 class="${p[1]}">${p[0]}</h3><div class="formula">${p[2]}</div><p class="note" style="margin:0">${p[3]}</p></div>`).join('')}</div>`;
+  c.innerHTML = top + `<div class="sectitle"><h2>${d==='p'?'Notions':'Les notions'}</h2></div>` + lexGrouped(LEX.filter(l=>l[2].includes(d)));
 });
 
 /* ---------- recherche ---------- */
