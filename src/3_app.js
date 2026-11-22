@@ -508,11 +508,12 @@ function show(id){
 /* ---------- barre de navigation interne (collante) sur chaque page ---------- */
 // barres définies à la main : [libellé, sélecteur de la cible dans la page]
 const TOC_CUSTOM = {
-  'p-donnees': [['Tokenisation, entraînement et examen', ':scope > .grid'], ['Les fiches de la planche', ':scope > .sectitle']]
+  'p-donnees': [['Tokenisation, entraînement et examen', ':scope > .grid'], ['Les fiches de la planche', ':scope > .sectitle']],
+  'p-apprentissage': [['Mesures', ':scope > .grid'], ['Fiches', ':scope > .sectitle']]
 };
-const TOC_NO_STEPS = ['p-reseau'];   // pages dont la barre ne reprend pas les fiches d’étapes une à une
+const TOC_NO_STEPS = ['p-reseau','p-generation','p-assistant','p-agents'];   // pages dont la barre ne reprend pas les fiches d’étapes une à une
 const TOC_H2_ONLY = ['p-fphys','p-fmaths','p-finfo','p-fondations'];   // pages dont la barre ne garde que les grandes parties (h2)
-const TOC_SKIP = ['p-accueil','p-attention','p-dico','p-frise','p-approche','p-code'];   // accueil : page vitrine ; attention : barre propre ; dico, frise : filtres collants
+const TOC_SKIP = ['p-accueil','p-attention','p-dico','p-frise','p-approche','p-code','p-physique','p-echelles'];   // accueil : page vitrine ; attention : barre propre ; dico, frise : filtres collants
 function tocLabel(el){
   if(el.classList.contains('pgroup')){ const k = el.querySelector('.fk'), b = el.querySelector('.pgl b');
     return (k ? k.textContent.match(/\d+/)[0] + ' · ' : '') + (b ? b.textContent : ''); }
