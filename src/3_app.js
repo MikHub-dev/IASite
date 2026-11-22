@@ -506,8 +506,13 @@ function show(id){
 }
 
 /* ---------- barre de navigation interne (collante) sur chaque page ---------- */
-const TOC_H2_ONLY = ['p-fphys','p-fmaths','p-finfo'];   // pages dont la barre ne garde que les grandes parties (h2)
-const TOC_SKIP = ['p-accueil','p-attention','p-dico','p-frise','p-approche'];   // accueil : page vitrine ; attention : barre propre ; dico, frise : filtres collants
+// barres définies à la main : [libellé, sélecteur de la cible dans la page]
+const TOC_CUSTOM = {
+  'p-donnees': [['Tokenisation, entraînement et examen', ':scope > .grid'], ['Les fiches de la planche', ':scope > .sectitle']]
+};
+const TOC_NO_STEPS = ['p-reseau'];   // pages dont la barre ne reprend pas les fiches d’étapes une à une
+const TOC_H2_ONLY = ['p-fphys','p-fmaths','p-finfo','p-fondations'];   // pages dont la barre ne garde que les grandes parties (h2)
+const TOC_SKIP = ['p-accueil','p-attention','p-dico','p-frise','p-approche','p-code'];   // accueil : page vitrine ; attention : barre propre ; dico, frise : filtres collants
 function tocLabel(el){
   if(el.classList.contains('pgroup')){ const k = el.querySelector('.fk'), b = el.querySelector('.pgl b');
     return (k ? k.textContent.match(/\d+/)[0] + ' · ' : '') + (b ? b.textContent : ''); }
@@ -524,7 +529,16 @@ function buildToc(sec){
   const old = sec.querySelector(':scope > .toc-nav'); if(old) old.remove();
   const inSec = el => !el.closest('.head,.modal,.toc-nav');
   const lvl1 = [...sec.querySelectorAll('h2, .famtitle, .pgroup')].filter(inSec);
-  const all  = [...sec.querySelectorAll('h2, .famtitle, .pgroup, h3')].filter(el => inSec(el) && !(el.parentElement && el.parentElement.closest('.pgroup .lex, .famtitle')));
+  let all  = [...sec.querySelectorAll('h2, .famtitle, .pgroup, h3')].filter(el => inSec(el) && !(el.parentElement && el.parentElement.closest('.pgroup .lex, .famtitle')));
+  if(TOC_CUSTOM[sec.id]){
+    const items = TOC_CUSTOM[sec.id].map(([l, q]) => [l, sec.querySelector(q)]).filter(x => x[1]);
+    const nav = document.createElement('nav'); nav.className = 'pa-nav toc-nav';
+    nav.innerHTML = items.map((x,i) => `<button type="button" data-toc="${i}">${x[0]}</button>`).join('');
+    nav.addEventListener('click', e => { const b = e.target.closest('[data-toc]'); if(b) tocJump(items[+b.dataset.toc][1], nav); });
+    const head = sec.querySelector(':scope > .head'); head ? head.after(nav) : sec.prepend(nav);
+    return;
+  }
+  if(TOC_NO_STEPS.includes(sec.id)) all = all.filter(el => !(el.tagName === 'H3' && el.closest('.steps')));
   let t;
   if(TOC_H2_ONLY.includes(sec.id)) t = all.filter(el => el.tagName === 'H2');
   else if(all.length <= 14) t = all;
