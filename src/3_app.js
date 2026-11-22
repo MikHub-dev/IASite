@@ -739,7 +739,38 @@ function openSearch(){ $('#search').classList.add('on'); $('#sq').value=''; $('#
 function closeSearch(){ $('#search').classList.remove('on'); }
 $('#openSearch').addEventListener('click', openSearch);
 $('#search').addEventListener('click', e=>{ if(e.target.id==='search') closeSearch(); });
+/* Texte des pages (#fondations, #reseau…) : une entrée par titre h1-h3, avec le texte qui le suit.
+   Construit à la première recherche, une fois les pages dessinées. Les notions (dictionnaire, fiches)
+   et les étapes du parcours ont déjà leur propre entrée : leurs cartes sont ignorées ici. */
+const DEEP_EL = []; let deepFait = false;
+function indexerPages(){
+  if(deepFait) return; deepFait = true;
+  const SEL = 'h1,h2,h3,h4,p,li,td,th,dt,dd,figcaption,blockquote,.formula,.note,.kicker';
+  $$('section.page').forEach(pg => {
+    const k = pg.id.slice(2); if(!TITLES[k] || k === 'dico') return;
+    let bloc = null;
+    const fin = () => { if(bloc && bloc.txt.trim()){ DEEP_EL.push(bloc.el);
+      IDX.push({t:bloc.t, s:TITLES[k], txt:bloc.txt.replace(/\s+/g,' ').trim(), go:k, de:DEEP_EL.length-1}); } };
+    pg.querySelectorAll(SEL).forEach(el => {
+      if(el.closest('.lex,[data-step],script,style,svg')) return;
+      if(el.parentElement && el.parentElement.closest(SEL) && el.parentElement.closest('section.page') === pg) return;
+      const txt = el.textContent.replace(/\s+/g,' ').trim(); if(!txt) return;
+      if(/^H[1-3]$/.test(el.tagName)){ fin(); bloc = {t:txt, el, txt:''}; return; }
+      if(!bloc) bloc = {t:TITLES[k], el:pg, txt:''};
+      bloc.txt += ' ' + txt;
+    });
+    fin();
+  });
+}
+function extraitDe(txt, words){
+  const n = norm(txt); let i = -1; for(const w of words){ i = n.indexOf(w); if(i >= 0) break; }
+  if(i < 0 || n.length !== txt.length) return '';
+  let d = Math.max(0, i-60); const f = Math.min(txt.length, i+110);
+  if(d > 0){ const sp = txt.indexOf(' ', d); if(sp > -1 && sp < i) d = sp+1; }
+  return (d>0?'…':'') + txt.slice(d, f) + (f<txt.length?'…':'');
+}
 $('#sq').addEventListener('input', ()=>{
+  indexerPages();
   const raw = $('#sq').value.trim(), q = norm(raw);
   if(q.length<2){ $('#sres').innerHTML=''; return; }
   const words = q.split(/\s+/);
@@ -749,6 +780,7 @@ $('#sq').addEventListener('input', ()=>{
   const hl = s => { let h = esc(s); words.forEach(w=>{ if(w.length<2) return;
       const re = new RegExp('('+[...w].map(c=>c.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('')+')','ig'); h = h.replace(re,'<mark>$1</mark>'); }); return h; };
   $('#sres').innerHTML = hits.length ? hits.map(({it})=> it.step ? `<a data-step="${it.step}">${hl(it.t)}<small>${it.s}</small></a>`
+      : it.de !== undefined ? `<a data-sgo="${it.go}" data-de="${it.de}">${hl(it.t.length>140?it.t.slice(0,140)+'…':it.t)}<small>Page ${esc(it.s)}</small>${(x => x ? `<small class="extrait">${hl(x)}</small>` : '')(extraitDe(it.txt, words))}</a>`
       : `<a data-sgo="${it.go}" data-q="${esc(it.q||'')}" data-pa="${it.pa||''}">${hl(it.t.length>140?it.t.slice(0,140)+'…':it.t)}<small>${esc(it.s)}</small></a>`).join('')
     : '<p class="note">Aucun résultat.</p>';
 });
@@ -756,6 +788,7 @@ $('#sres').addEventListener('click', e=>{
   const a = e.target.closest('[data-sgo]'); if(!a) return;
   closeSearch(); go(a.dataset.sgo);
   if(a.dataset.pa) setTimeout(()=>$('#pa-e'+a.dataset.pa).scrollIntoView({block:'start'}),60);
+  if(a.dataset.de) setTimeout(()=>{ const el = DEEP_EL[+a.dataset.de]; if(el) el.scrollIntoView({block:'center'}); },60);
   if(a.dataset.sgo==='dico' && a.dataset.q){ dicoFam='all'; $('#dicoQ').value=a.dataset.q; drawDico(); }
 });
 document.addEventListener('keydown', e=>{

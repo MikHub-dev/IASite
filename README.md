@@ -15,7 +15,7 @@ Cinquième site de la famille FamZakSites, sur le modèle de QuantumSite : le pa
 
 - Barre du haut : les chapitres du parcours, des fondations aux agents, plus Dictionnaire et Ateliers.
 - Barre latérale : les ressources transversales (frise, parcours en 15 étapes, fiches par discipline, repères, approche, code, parcours de l'attention).
-- Les pages défilent verticalement. Un clic sur une étape ouvre sa fiche ; dans une fiche, ← → passent d'une étape à l'autre. Touche `/` : rechercher. Échap : fermer.
+- Les pages défilent verticalement. Un clic sur une étape ouvre sa fiche ; dans une fiche, ← → passent d'une étape à l'autre. Touche `/` : rechercher (étapes, notions, frise et texte de toutes les pages ; un résultat ouvre la page sur le bon passage). Échap : fermer.
 - Dans les listes groupées (dictionnaire, fiches, parcours), le titre de chaque famille est une vignette placée dans la grille, pour que les familles s'enchaînent sans couper la ligne. Les frises restent en liste verticale.
 
 ## Fichiers
