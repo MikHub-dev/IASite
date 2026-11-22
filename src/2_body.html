@@ -3,7 +3,6 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7fb6ff"/></marker>
   <marker id="ar2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#c9d6ec"/></marker>
-  <filter id="glow" filterUnits="userSpaceOnUse" x="0" y="0" width="360" height="360"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 </defs></svg>
 
 <header class="top">
@@ -39,21 +38,20 @@
   <a data-go="code">Le code micro_gpt.py</a>
   <a data-go="attention">Parcours LLM : l’attention</a>
   <div class="sep"></div>
-  <a data-go="apropos">À propos d’IASite</a>
+  <small>Projet</small>
+  <a data-go="apropos">À propos d'IASite</a>
 </aside>
 
 <main>
-<div id="viewport">
 <!-- ======================================================= ACCUEIL -->
 <section class="page" id="p-accueil">
- <div class="pl" data-t="Accueil" data-nosplit="1">
   <div class="banner">
     <div class="col">
       <div class="ttl c-or">UNE TÂCHE, UN MODÈLE</div>
       <div class="sub">L’ancien paradigme</div>
       <svg viewBox="0 0 260 120" width="100%" style="max-width:270px">
         <defs><linearGradient id="fadeR" x1="0" x2="1"><stop offset="0" stop-color="#ff8a3d" stop-opacity=".15"/><stop offset="1" stop-color="#ff8a3d"/></linearGradient></defs>
-        <g font-family="Outfit,system-ui,sans-serif" font-size="10" text-anchor="middle">
+        <g font-family="Outfit,sans-serif" font-size="10" text-anchor="middle">
           <g opacity=".25"><rect x="6" y="46" width="36" height="28" rx="6" fill="none" stroke="#ff8a3d"/><text x="24" y="64" fill="#ffb98a">le</text></g>
           <g opacity=".45"><rect x="56" y="46" width="36" height="28" rx="6" fill="none" stroke="#ff8a3d"/><text x="74" y="64" fill="#ffb98a">chat</text></g>
           <g opacity=".65"><rect x="106" y="46" width="36" height="28" rx="6" fill="none" stroke="#ff8a3d"/><text x="124" y="64" fill="#ffb98a">dort</text></g>
@@ -75,7 +73,7 @@
       <div class="ttl c-cy">ATTENTION PARALLÈLE</div>
       <div class="sub">Le paradigme du Transformer</div>
       <svg viewBox="0 0 260 120" width="100%" style="max-width:270px">
-        <g font-family="Outfit,system-ui,sans-serif" font-size="10" text-anchor="middle">
+        <g font-family="Outfit,sans-serif" font-size="10" text-anchor="middle">
           <g fill="none" stroke="#3dd8ff">
             <path d="M24 70 Q49 20 74 70" stroke-opacity=".35"/><path d="M24 70 Q74 5 124 70" stroke-opacity=".25"/><path d="M24 70 Q99 -10 174 70" stroke-opacity=".2"/><path d="M24 70 Q126 -25 228 70" stroke-opacity=".55" stroke-width="2"/>
             <path d="M74 70 Q99 30 124 70" stroke-opacity=".3"/><path d="M74 70 Q124 15 174 70" stroke-opacity=".2"/><path d="M74 70 Q151 0 228 70" stroke-opacity=".7" stroke-width="2.4"/>
@@ -95,55 +93,85 @@
   <div class="pillars">
     <div class="pillar c-cy" data-go="generation">
       <svg viewBox="0 0 360 360">
-        <defs><radialGradient id="gCy" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#bff4ff"/><stop offset=".25" stop-color="#3dd8ff"/><stop offset=".7" stop-color="#0b5d8f" stop-opacity=".5"/><stop offset="1" stop-color="#05203a" stop-opacity="0"/></radialGradient></defs>
+        <defs>
+          <radialGradient id="gCy" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#bff4ff"/><stop offset=".25" stop-color="#3dd8ff"/><stop offset=".7" stop-color="#0b5d8f" stop-opacity=".5"/><stop offset="1" stop-color="#05203a" stop-opacity="0"/></radialGradient>
+          <filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
         <circle cx="180" cy="180" r="150" fill="none" stroke="#3dd8ff" stroke-width="3" filter="url(#glow)"/>
         <circle cx="180" cy="180" r="136" fill="none" stroke="#3dd8ff" stroke-opacity=".35" stroke-dasharray="2 6"/>
         <circle cx="180" cy="180" r="90" fill="url(#gCy)" opacity=".85"/>
-        <g stroke="#e9fbff" stroke-width="1.2" fill="none" opacity=".85"><path d="M70 250 C120 250 140 90 180 90 C220 90 240 250 290 250"/><path d="M70 250 H290"/></g>
-        <g fill="#e9fbff">
-          <rect x="166" y="98" width="28" height="152" rx="3" opacity=".9"><animate attributeName="opacity" values=".9;.6;.9" dur="4s" repeatCount="indefinite"/></rect>
-          <rect x="130" y="232" width="20" height="18" rx="2" opacity=".55"/><rect x="210" y="238" width="20" height="12" rx="2" opacity=".45"/>
-          <rect x="102" y="244" width="16" height="6" rx="2" opacity=".35"/><rect x="242" y="245" width="16" height="5" rx="2" opacity=".3"/>
+        <g stroke="#e9fbff" stroke-width="1.2" fill="none" opacity=".85">
+          <path d="M70 250 C120 250 140 90 180 90 C220 90 240 250 290 250"/>
+          <path d="M70 250 H290"/>
         </g>
-        <g font-family="Outfit,system-ui,sans-serif" fill="#dff8ff" text-anchor="middle"><text x="180" y="88" font-size="15" font-weight="600">« : »  98,4 %</text><text x="180" y="272" font-size="11" opacity=".8">après « ROMEO »</text></g>
+        <g fill="#e9fbff">
+          <rect x="166" y="98" width="28" height="152" rx="3" opacity=".9"/>
+          <rect x="130" y="232" width="20" height="18" rx="2" opacity=".55"/>
+          <rect x="210" y="238" width="20" height="12" rx="2" opacity=".45"/>
+          <rect x="102" y="244" width="16" height="6" rx="2" opacity=".35"/>
+          <rect x="242" y="245" width="16" height="5" rx="2" opacity=".3"/>
+        </g>
+        <g font-family="Outfit,sans-serif" fill="#dff8ff" text-anchor="middle">
+          <text x="180" y="88" font-size="15" font-weight="600">« : »  98,4 %</text>
+          <text x="180" y="272" font-size="11" opacity=".8">après « ROMEO »</text>
+        </g>
         <g font-family="JetBrains Mono,monospace" font-size="10.5" fill="#bfefff" opacity=".85">
-          <text x="58" y="62" transform="rotate(-38 58 62)">pᵢ = e^zᵢ / Σ e^zⱼ</text><text x="248" y="70" transform="rotate(35 248 70)">T = 0,8</text>
-          <text x="300" y="208" transform="rotate(82 300 208)">top-p 95 %</text><text x="72" y="306" transform="rotate(42 72 306)">ln 4096 ≈ 8,32</text>
-          <text x="232" y="330" transform="rotate(-30 232 330)">H = −Σ p log p</text><text x="26" y="200" transform="rotate(-82 26 200)">perplexité 80,7</text>
+          <text x="58" y="62" transform="rotate(-38 58 62)">pᵢ = e^zᵢ / Σ e^zⱼ</text>
+          <text x="248" y="70" transform="rotate(35 248 70)">T = 0,8</text>
+          <text x="300" y="208" transform="rotate(82 300 208)">top-p 95 %</text>
+          <text x="72" y="306" transform="rotate(42 72 306)">ln 4096 ≈ 8,32</text>
+          <text x="232" y="330" transform="rotate(-30 232 330)">H = −Σ p log p</text>
+          <text x="26" y="200" transform="rotate(-82 26 200)">perplexité 80,7</text>
         </g>
       </svg>
       <div class="k">LES PROBABILITÉS</div><span class="dot"></span><div class="v">prédisent la suite.</div>
     </div>
+
     <div class="pillar c-go" data-go="apprentissage">
       <svg viewBox="0 0 360 360">
         <defs><radialGradient id="gGo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff6d6"/><stop offset=".2" stop-color="#ffd166"/><stop offset=".6" stop-color="#b8651a" stop-opacity=".4"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
         <g fill="none" stroke="#ffd166">
-          <ellipse cx="180" cy="180" rx="150" ry="120" stroke-opacity=".18"/><ellipse cx="184" cy="182" rx="125" ry="98" stroke-opacity=".24"/><ellipse cx="188" cy="184" rx="100" ry="78" stroke-opacity=".32"/>
-          <ellipse cx="190" cy="186" rx="76" ry="58" stroke-opacity=".42"/><ellipse cx="192" cy="187" rx="52" ry="40" stroke-opacity=".55"/><ellipse cx="193" cy="188" rx="28" ry="22" stroke-opacity=".75"/>
+          <ellipse cx="180" cy="180" rx="150" ry="120" stroke-opacity=".18"/>
+          <ellipse cx="184" cy="182" rx="125" ry="98" stroke-opacity=".24"/>
+          <ellipse cx="188" cy="184" rx="100" ry="78" stroke-opacity=".32"/>
+          <ellipse cx="190" cy="186" rx="76" ry="58" stroke-opacity=".42"/>
+          <ellipse cx="192" cy="187" rx="52" ry="40" stroke-opacity=".55"/>
+          <ellipse cx="193" cy="188" rx="28" ry="22" stroke-opacity=".75"/>
         </g>
         <circle cx="193" cy="188" r="60" fill="url(#gGo)"/>
         <path id="gradPath" d="M52 92 C90 70 150 60 220 82 C290 105 305 190 262 238 C222 280 150 270 128 228 C108 190 140 152 180 156 C212 160 214 190 196 190" fill="none" stroke="#fff1c4" stroke-width="2" stroke-dasharray="1 7" stroke-linecap="round"/>
-        <g fill="#ffe2a0"><circle cx="135" cy="68" r="5"/><circle cx="220" cy="82" r="5"/><circle cx="284" cy="150" r="4.5"/><circle cx="262" cy="238" r="4.5"/><circle cx="186" cy="262" r="4"/><circle cx="128" cy="228" r="4"/><circle cx="148" cy="166" r="3.5"/><circle cx="196" cy="190" r="6" fill="#fff"/></g>
-        <circle r="7" fill="#ff8a3d"><animateMotion dur="6s" repeatCount="indefinite"><mpath href="#gradPath"/></animateMotion></circle>
+        <g fill="#ffe2a0">
+          <circle r="7" fill="#ff8a3d"><animateMotion dur="6s" repeatCount="indefinite"><mpath href="#gradPath"/></animateMotion></circle><circle cx="135" cy="68" r="5"/><circle cx="220" cy="82" r="5"/><circle cx="284" cy="150" r="4.5"/><circle cx="262" cy="238" r="4.5"/><circle cx="186" cy="262" r="4"/><circle cx="128" cy="228" r="4"/><circle cx="148" cy="166" r="3.5"/><circle cx="196" cy="190" r="6" fill="#fff"/>
+        </g>
         <g font-family="JetBrains Mono,monospace" font-size="10.5" fill="#ffe6a8" opacity=".9">
-          <text x="40" y="80">perte 8,24</text><text x="206" y="212" fill="#fff">4,39</text>
-          <text x="60" y="330" transform="rotate(-8 60 330)">θ ← θ − η·∇L</text><text x="250" y="320" transform="rotate(-25 250 320)">AdamW</text>
-          <text x="262" y="58" transform="rotate(25 262 58)">(g∘f)′ = (g′∘f)·f′</text><text x="16" y="215" transform="rotate(-80 16 215)">2 000 pas</text>
+          <text x="40" y="80">perte 8,24</text>
+          <text x="206" y="212" fill="#fff">4,39</text>
+          <text x="60" y="330" transform="rotate(-8 60 330)">θ ← θ − η·∇L</text>
+          <text x="250" y="320" transform="rotate(-25 250 320)">AdamW</text>
+          <text x="262" y="58" transform="rotate(25 262 58)">(g∘f)′ = (g′∘f)·f′</text>
+          <text x="16" y="215" transform="rotate(-80 16 215)">2 000 pas</text>
         </g>
       </svg>
       <div class="k">LE GRADIENT</div><span class="dot"></span><div class="v">façonne les réglages.</div>
     </div>
+
     <div class="pillar c-rd" data-go="reseau">
       <svg viewBox="0 0 360 360">
         <defs><radialGradient id="gRd" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd0da"/><stop offset=".3" stop-color="#ff4f6d"/><stop offset=".75" stop-color="#7a1030" stop-opacity=".45"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient></defs>
         <circle cx="180" cy="180" r="150" fill="rgba(120,10,40,.25)" stroke="#ff4f6d" stroke-width="3" filter="url(#glow)"/>
         <circle cx="180" cy="180" r="162" fill="none" stroke="#ff4f6d" stroke-opacity=".25"/>
         <g fill="none" stroke="#ff9db0">
-          <path d="M180 62 Q180 180 263 97" stroke-opacity=".35"/><path d="M180 62 Q180 180 298 180" stroke-opacity=".2"/><path d="M263 97 Q180 180 298 180" stroke-opacity=".5" stroke-width="2"/>
-          <path d="M97 97 Q180 180 263 263" stroke-opacity=".65" stroke-width="2.6"/><path d="M62 180 Q180 180 263 263" stroke-opacity=".3"/>
-          <path d="M180 298 Q180 180 263 263" stroke-opacity=".85" stroke-width="3"><animate attributeName="stroke-opacity" values=".85;.4;.85" dur="3s" repeatCount="indefinite"/></path>
-          <path d="M97 263 Q180 180 263 263" stroke-opacity=".45" stroke-width="1.6"/><path d="M298 180 Q180 180 263 263" stroke-opacity=".55" stroke-width="2"/>
-          <path d="M62 180 Q180 180 97 97" stroke-opacity=".3"/><path d="M97 263 Q180 180 62 180" stroke-opacity=".25"/><path d="M180 62 Q180 180 97 97" stroke-opacity=".3"/>
+          <path d="M180 62 Q180 180 263 97" stroke-opacity=".35"/>
+          <path d="M180 62 Q180 180 298 180" stroke-opacity=".2"/>
+          <path d="M263 97 Q180 180 298 180" stroke-opacity=".5" stroke-width="2"/>
+          <path d="M97 97 Q180 180 263 263" stroke-opacity=".65" stroke-width="2.6"/>
+          <path d="M62 180 Q180 180 263 263" stroke-opacity=".3"/>
+          <path d="M180 298 Q180 180 263 263" stroke-opacity=".85" stroke-width="3"/>
+          <path d="M97 263 Q180 180 263 263" stroke-opacity=".45" stroke-width="1.6"/>
+          <path d="M298 180 Q180 180 263 263" stroke-opacity=".55" stroke-width="2"/>
+          <path d="M62 180 Q180 180 97 97" stroke-opacity=".3"/>
+          <path d="M97 263 Q180 180 62 180" stroke-opacity=".25"/>
+          <path d="M180 62 Q180 180 97 97" stroke-opacity=".3"/>
         </g>
         <circle cx="180" cy="180" r="46" fill="url(#gRd)"><animate attributeName="r" values="44;50;44" dur="3s" repeatCount="indefinite"/></circle>
         <g fill="#2a0712" stroke="#ff4f6d" stroke-width="1.5">
@@ -159,9 +187,7 @@
       <div class="k">DE L’ATTENTION</div><span class="dot"></span><div class="v">naît le sens.</div>
     </div>
   </div>
- </div>
- <div class="pl" data-t="Le parcours en 6 planches">
-  <div class="phead"><div class="kicker">Vue d’ensemble</div><h2>Le parcours en 6 planches</h2></div>
+
   <div class="stats">
     <div class="stat"><b>1 315 968</b><span>réglages du micro-GPT</span></div>
     <div class="stat"><b>4 096</b><span>tokens dans le vocabulaire</span></div>
@@ -170,13 +196,13 @@
     <div class="stat"><b>≈ 2 bits</b><span>par caractère, contre 8</span></div>
     <div class="stat"><b>×130 000</b><span>l’écart avec GPT-3 (175 Md)</span></div>
   </div>
+
+  <div class="sectitle"><h2>Le parcours en 6 planches</h2><span>cliquez une planche pour l’ouvrir</span></div>
   <div class="grid g3" id="homePlanches"></div>
- </div>
 </section>
 
 <!-- ======================================================= FONDATIONS -->
 <section class="page" id="p-fondations">
- <div class="pl" data-t="GPT, le nom">
   <div class="head"><div class="kicker">Planche 0 · avant de commencer</div><h1>GPT et le Transformer</h1>
   <p class="lead">Ce que veut dire le nom, à quoi sert le produit, et l’architecture sur laquelle tout repose.</p></div>
   <div class="grid g3">
@@ -184,38 +210,34 @@
     <div class="card"><div class="bigout c-go">P</div><h3>Pre-trained</h3><p>Il a d’abord été entraîné sur d’immenses volumes de texte brut, sans étiquetage manuel.</p></div>
     <div class="card"><div class="bigout c-rd">T</div><h3>Transformer</h3><p>L’architecture de réseau de neurones sous-jacente, publiée par Google en 2017.</p></div>
   </div>
-  <div class="card hl"><b>En une phrase :</b> un GPT lit un début de texte et devine, morceau par morceau, la suite la plus plausible.<br><span class="note">Échelle : notre micro-GPT compte 1,3 million de réglages ; GPT-3, en 2020, en comptait 175 milliards, environ 130 000 fois plus.</span></div>
-  <div class="grid g2">
+  <div class="card hl" style="margin-top:18px"><b>En une phrase :</b> un GPT lit un début de texte et devine, morceau par morceau, la suite la plus plausible. <span class="note">Échelle : notre micro-GPT compte 1,3 million de réglages ; GPT-3, en 2020, en comptait 175 milliards, environ 130 000 fois plus.</span></div>
+
+  <div class="sectitle"><h2>Fiche produit</h2><span>GPT, le produit</span></div>
+  <div class="grid g3">
+    <div class="card"><h3 class="c-or">Besoin initial</h3><p>Faire comprendre et produire du langage à une machine, pour toutes sortes de tâches, sans écrire un programme différent ni annoter à la main des milliers d’exemples pour chacune.</p><p class="note">Avant 2018, chaque tâche (traduire, résumer, classer…) avait son modèle, et les réseaux lisaient mot après mot en oubliant le début des longues phrases.</p></div>
+    <div class="card"><h3 class="c-cy">Produit final</h3><p>Un modèle qui calcule la probabilité de chaque morceau suivant possible, en choisit un, et recommence.</p><p>Post-entraîné, il suit des consignes : c’est un <b>assistant</b>. Relié à des outils, il agit : c’est un <b>agent</b>.</p></div>
+    <div class="card"><h3 class="c-gr">Valeur ajoutée</h3><ul><li>le <b>moteur de recherche</b> retrouve des textes existants ;</li><li>le <b>traducteur</b> ne fait qu’une tâche ;</li><li>le <b>chatbot à script</b> récite des réponses prévues ;</li><li>l’<b>autocomplétion</b> ne regarde que les derniers mots.</li></ul><p>GPT rédige une réponse nouvelle en tenant compte de tout le contexte.</p></div>
+  </div>
+  <div class="grid g2" style="margin-top:18px">
     <div class="card"><h3>Origine</h3><p>OpenAI, 2018 (GPT-1), à partir du Transformer publié par Google en 2017.</p></div>
     <div class="card"><h3>Limites</h3><p>Il peut affirmer avec aplomb des choses fausses, ne sait que ce qu’il a lu, et coûte cher à entraîner.</p></div>
   </div>
- </div>
- <div class="pl" data-t="Fiche produit">
-  <div class="phead"><div class="kicker">GPT, le produit</div><h2>Fiche produit</h2></div>
-  <div class="grid g3">
-    <div class="card"><h3 class="c-or">Besoin initial</h3><p>Faire comprendre et produire du langage à une machine, pour toutes sortes de tâches, sans écrire un programme différent ni annoter à la main des milliers d’exemples pour chacune.</p><p class="note">Avant 2018, chaque tâche (traduire, résumer, classer…) avait son modèle, et les réseaux lisaient mot après mot en oubliant le début des longues phrases.</p></div>
-    <div class="card"><h3 class="c-cy">Produit final</h3><p>Un modèle qui calcule la probabilité de chaque morceau suivant possible, en choisit un, et recommence.</p><p>Post-entraîné, il suit des consignes : c’est un <b>assistant</b>. Relié à des outils, il agit : c’est un <b>agent</b>.</p><p class="note">Dans ce parcours : micro_gpt.py, 1,3 million de réglages, qui écrit à la manière de Shakespeare.</p></div>
-    <div class="card"><h3 class="c-gr">Valeur ajoutée</h3><ul><li>le <b>moteur de recherche</b> retrouve des textes existants ;</li><li>le <b>traducteur</b> ne fait qu’une tâche ;</li><li>le <b>chatbot à script</b> récite des réponses prévues ;</li><li>l’<b>autocomplétion</b> ne regarde que les derniers mots.</li></ul><p>GPT rédige une réponse nouvelle en tenant compte de tout le contexte, et un seul modèle s’adapte à des milliers de tâches.</p></div>
-  </div>
- </div>
- <div class="pl" data-t="Le Transformer">
-  <div class="phead"><div class="kicker">L’architecture</div><h2>Le Transformer, en une page</h2></div>
+
+  <div class="sectitle"><h2>Le Transformer, en une page</h2></div>
   <div class="grid g3">
     <div class="card"><h3>Le problème d’avant</h3><p>Les réseaux récurrents lisaient le texte un mot après l’autre. Impossible de répartir le calcul, et le début des longs textes s’effaçait.</p></div>
     <div class="card"><h3>L’idée de 2017 : l’attention</h3><p>Tous les tokens sont traités en même temps, et chacun va chercher directement, dans tout ce qui précède, ceux qui comptent pour lui.</p></div>
     <div class="card"><h3>Une image : la réunion</h3><p>Chaque token arrive avec une question (Q), une étiquette (K) et une information à partager (V). Il écoute surtout ceux dont l’étiquette répond à sa question.</p></div>
     <div class="card"><h3>La recette d’un GPT</h3><p>Les tokens deviennent des vecteurs, puis traversent une pile d’étages identiques : les tokens échangent (attention), puis chacun réfléchit seul (bloc de calcul).</p></div>
     <div class="card"><h3>Encodeur, décodeur</h3><p>Le Transformer d’origine, conçu pour la traduction, avait deux moitiés. GPT ne garde que le décodeur, avec un masque qui l’empêche de lire la suite.</p></div>
-    <div class="card"><h3>Pourquoi ça a tout changé</h3><p>Le calcul en parallèle permet d’entraîner sur des milliards de mots avec des cartes graphiques, et la qualité progresse de façon prévisible avec la taille.</p></div>
+    <div class="card"><h3>Pourquoi ça a tout changé</h3><p>Le calcul en parallèle permet d’entraîner sur des milliards de mots avec des cartes graphiques, et la qualité progresse de façon prévisible avec la taille (lois d’échelle).</p></div>
   </div>
-  <div class="card hl"><h3>Et notre micro-GPT ?</h3><p>Il suit cette recette avec les pièces modernes des modèles ouverts récents, comme LLaMA : normalisation <b>RMSNorm</b>, position par rotation (<b>RoPE</b>) et bloc de calcul <b>SwiGLU</b>.</p>
+  <div class="card hl" style="margin-top:18px"><h3>Et notre micro-GPT ?</h3><p>Il suit cette recette avec les pièces modernes des modèles ouverts récents, comme LLaMA : normalisation <b>RMSNorm</b>, position par rotation (<b>RoPE</b>) et bloc de calcul <b>SwiGLU</b>.</p>
   <div class="formula">h⁰ = E[x]  →  ×4 : a = h + Attention(RMSNorm(h)) ;  h = a + SwiGLU(RMSNorm(a))  →  RMSNorm → h·Eᵀ → softmax</div></div>
- </div>
 </section>
 
 <!-- ======================================================= DONNÉES -->
 <section class="page" id="p-donnees">
- <div class="pl" data-t="Préparer le texte">
   <div class="head"><div class="kicker">Planche 1 · étapes 1 à 3</div><h1>Préparer le texte</h1>
   <p class="lead">Du fichier brut aux exercices « devine la suite ». Un réseau ne manipule que des nombres : il faut d’abord découper le texte en morceaux numérotés, puis en fabriquer des milliers d’exercices.</p></div>
   <div class="grid g2">
@@ -235,21 +257,17 @@
       <tr><th>cible</th><td class="num c-cy">␣be</td><td class="num c-cy">,</td><td class="num c-cy">␣or</td><td class="num c-cy">␣not</td><td class="num c-cy">␣to</td><td class="num c-cy">␣be</td></tr></table>
       <p class="note">Sous chaque token, la bonne réponse : le token qui le suit.</p></div>
   </div>
- </div>
- <div class="pl" data-t="Les fiches 1 à 3">
-  <div class="phead"><div class="kicker">Planche 1</div><h2>Les fiches de la planche</h2></div>
+  <div class="sectitle"><h2>Les fiches de la planche</h2></div>
   <div class="steps" data-steps="1-3"></div>
- </div>
 </section>
 
 <!-- ======================================================= RÉSEAU -->
 <section class="page" id="p-reseau">
- <div class="pl" data-t="Le schéma du réseau">
   <div class="head"><div class="kicker">Planche 2 · étapes 4 à 7</div><h1>Concevoir le réseau</h1>
-      <p class="lead">Les cotes, l’inventaire des pièces, l’assemblage, puis le point de départ aléatoire. L’architecture ne changera plus : seules les valeurs de ses 1 315 968 réglages évolueront.</p></div>
-  <div class="grid g2" style="align-items:start">
+  <p class="lead">Les cotes, l’inventaire des pièces, l’assemblage, puis le point de départ aléatoire. L’architecture ne changera plus jamais : seules les valeurs de ses 1 315 968 réglages évolueront.</p></div>
+  <div class="grid" style="grid-template-columns:1.1fr 1fr">
     <div class="svgbox">
-      <svg viewBox="0 0 560 640" font-family="Outfit,system-ui,sans-serif">
+      <svg viewBox="0 0 560 640" font-family="Outfit,sans-serif">
         <line x1="60" y1="70" x2="60" y2="560" stroke="#3dd8ff" stroke-width="4" stroke-opacity=".5"/>
         <circle r="5" fill="#3dd8ff"><animateMotion dur="4s" repeatCount="indefinite" path="M60 80 V555"/></circle>
         <text x="30" y="320" fill="#3dd8ff" font-size="11" transform="rotate(-90 30 320)" text-anchor="middle">flux résiduel : 128 nombres par token</text>
@@ -274,7 +292,7 @@
         <rect x="120" y="570" width="330" height="48" rx="10" fill="rgba(61,216,255,.16)" stroke="#3dd8ff"/><text x="285" y="592" fill="#fff" text-anchor="middle" font-size="14">softmax → 256 lois de probabilité</text><text x="285" y="609" fill="#bfefff" text-anchor="middle" font-size="11.5">une par position, sur les 4 096 tokens</text>
       </svg>
     </div>
-    <div class="col-stack">
+    <div>
       <div class="card"><h3>Les cotes du modèle</h3>
         <table class="t">
           <tr><td class="num">d = 128</td><td>chaque token devient un vecteur de 128 nombres</td></tr>
@@ -285,68 +303,53 @@
           <tr><td class="num">V = 4 096</td><td>tokens dans le vocabulaire</td></tr>
           <tr><td class="num">16 × 2 000</td><td>16 extraits par pas, 2 000 pas prévus</td></tr>
         </table></div>
+      <div class="card" style="margin-top:16px"><h3>Où sont les 1 315 968 réglages ?</h3>
+        <svg viewBox="0 0 500 44" width="100%"><rect x="0" y="6" width="201" height="30" fill="#ffd166"/><rect x="201" y="6" width="199" height="30" fill="#a98bff"/><rect x="400" y="6" width="99.5" height="30" fill="#ff4f6d"/><rect x="499.5" y="6" width=".5" height="30" fill="#3dd8ff"/></svg>
+        <div class="legend"><span><i style="background:#ffd166"></i>Bloc de calcul 40,2 %</span><span><i style="background:#a98bff"></i>Table des tokens 39,8 %</span><span><i style="background:#ff4f6d"></i>Attention 19,9 %</span><span><i style="background:#3dd8ff"></i>Normalisations 0,09 %</span></div>
+        <div class="formula">L·(4d² + 3·d·d_ff + 2d) + V·d + d = 1 315 968</div>
+        <p class="note">Faites varier d, L ou V dans l’<a data-go="ateliers">atelier compteur</a>.</p></div>
+      <div class="card" style="margin-top:16px"><h3>Combien de neurones ?</h3>
+        <div class="grid g2"><div><div class="bigout c-go">1 376</div><p class="note">au sens strict : unités avec non-linéarité, 344 par bloc × 4. L’attention n’en a pas.</p></div>
+        <div><div class="bigout c-cy">9 408</div><p class="note">au sens large (somme pondérée) : 1 328 par bloc × 4, plus 4 096 neurones de sortie.</p></div></div>
+        <p class="note">Le ver C. elegans a 302 neurones et ~7 000 synapses : le micro-GPT a ~4,5 fois plus de neurones, mais ~190 fois plus de connexions.</p></div>
     </div>
   </div>
- </div>
- <div class="pl" data-t="Réglages et neurones">
-  <div class="phead"><div class="kicker">Planche 2</div><h2>Réglages et neurones</h2></div>
-  <div class="grid g2">
-    <div class="card"><h3>Où sont les 1 315 968 réglages ?</h3>
-      <svg viewBox="0 0 500 44" width="100%"><rect x="0" y="6" width="201" height="30" fill="#ffd166"/><rect x="201" y="6" width="199" height="30" fill="#a98bff"/><rect x="400" y="6" width="99.5" height="30" fill="#ff4f6d"/><rect x="499.5" y="6" width=".5" height="30" fill="#3dd8ff"/></svg>
-      <div class="legend"><span><i style="background:#ffd166"></i>Bloc de calcul 40,2 %</span><span><i style="background:#a98bff"></i>Table des tokens 39,8 %</span><span><i style="background:#ff4f6d"></i>Attention 19,9 %</span><span><i style="background:#3dd8ff"></i>Normalisations 0,09 %</span></div>
-      <div class="formula">L·(4d² + 3·d·d_ff + 2d) + V·d + d = 1 315 968</div>
-      <p class="note">Faites varier d, L ou V dans l’<a data-go="ateliers">atelier compteur</a>.</p></div>
-    <div class="card"><h3>Combien de neurones ?</h3>
-      <div class="grid g2"><div><div class="bigout c-go">1 376</div><p class="note">au sens strict : unités avec non-linéarité, 344 par bloc × 4. L’attention n’en a pas.</p></div>
-      <div><div class="bigout c-cy">9 408</div><p class="note">au sens large (somme pondérée) : 1 328 par bloc × 4, plus 4 096 neurones de sortie.</p></div></div>
-      <p class="note">Le ver C. elegans a 302 neurones et ~7 000 synapses : le micro-GPT a ~4,5 fois plus de neurones, mais ~190 fois plus de connexions.</p></div>
-  </div>
- </div>
- <div class="pl" data-t="Les fiches 4 à 7">
-  <div class="phead"><div class="kicker">Planche 2</div><h2>Les fiches de la planche</h2></div>
+  <div class="sectitle"><h2>Les fiches de la planche</h2></div>
   <div class="steps" data-steps="4-7"></div>
- </div>
 </section>
 
 <!-- ======================================================= APPRENTISSAGE -->
 <section class="page" id="p-apprentissage">
- <div class="pl" data-t="Vérifier, mesurer">
   <div class="head"><div class="kicker">Planches 3 et 4 · étapes 8 à 11</div><h1>Vérifier, accélérer, apprendre</h1>
   <p class="lead">Un bug dans un réseau ne fait pas planter le programme : le modèle apprend simplement mal. On vérifie donc tout à vide, on chronomètre, puis on lance 2 000 fois les cinq gestes de l’apprentissage.</p></div>
   <div class="grid g2">
     <div class="card"><h3>Les 7 voyants verts (16 s)</h3><div id="checks"></div></div>
     <div class="card"><h3>La perte, mesurée</h3>
-      <svg viewBox="0 0 520 280" font-family="Outfit,system-ui,sans-serif" id="losschart"></svg>
+      <svg viewBox="0 0 520 280" font-family="Outfit,sans-serif" id="losschart"></svg>
       <div class="legend"><span><i style="background:#3dd8ff"></i>entraînement (pas 200 et 400 non relevés)</span><span><i style="background:#ff8a3d"></i>examen (validation)</span><span><i style="background:#5f7499"></i>ln 4 096 ≈ 8,32 (ne rien savoir)</span></div>
       <p class="note">Presque tout se joue dans les 200 premiers pas ; ensuite les courbes s’écartent : c’est le début du par-cœur. Le calcul de test s’est arrêté au pas 800.</p></div>
   </div>
- </div>
- <div class="pl" data-t="AdamW et vitesse">
-  <div class="phead"><div class="kicker">Planche 3</div><h2>Corriger et accélérer</h2></div>
-  <div class="grid g3">
+  <div class="grid g3" style="margin-top:18px">
     <div class="card"><h3 class="c-cy">L’inertie</h3><p>AdamW suit la moyenne récente des dérivées, comme une bille lourde qui roule en frottant : elle franchit les petites bosses.</p></div>
     <div class="card"><h3 class="c-go">Un pas sur mesure</h3><p>On divise par l’amplitude récente des dérivées : chaque réglage a son propre pas.</p></div>
     <div class="card"><h3 class="c-rd">Le rappel vers zéro</h3><p>Le « W » : chaque poids rétrécit un peu à chaque pas, comme retenu par un ressort (idée de Tikhonov, appliquée à part).</p></div>
   </div>
-  <div class="card"><h3>Accélérer : mesurer avant d’optimiser</h3>
+  <div class="card" style="margin-top:18px"><h3>Accélérer : mesurer avant d’optimiser</h3>
     <div class="bars" id="speedbars"></div>
     <div class="rig"><b>Point de rigueur.</b> Passer de 32 à 16 extraits divise aussi par deux le texte traité par pas : le vrai gain par extrait est d’environ 1,4×, et non 2,9×.</div></div>
- </div>
- <div class="pl" data-t="Les fiches 8 à 11">
-  <div class="phead"><div class="kicker">Planches 3 et 4</div><h2>Les fiches</h2></div>
+  <div class="sectitle"><h2>Les fiches</h2></div>
   <div class="steps" data-steps="8-11"></div>
- </div>
 </section>
 
 <!-- ======================================================= GÉNÉRATION -->
 <section class="page" id="p-generation">
- <div class="pl" data-t="Faire parler le modèle">
   <div class="head"><div class="kicker">Planches 4 et 5 · étapes 12 et 13</div><h1>Faire parler le modèle</h1>
   <p class="lead">Le modèle ne sait que donner les probabilités du token suivant : on en tire un, on l’ajoute au texte, et on recommence.</p></div>
-  <div class="iobox"><span>4 096 scores</span><em>→</em><span>÷ 0,8 (température)</span><em>→</em><span>softmax</span><em>→</em><span>top-p 95 %</span><em>→</em><span>tirage au sort</span><em>→</em><span>1 token ajouté</span></div>
-  <div class="grid g2">
+  <div class="card"><h3>À chaque token</h3>
+    <div class="iobox"><span>4 096 scores</span><em>→</em><span>÷ 0,8 (température)</span><em>→</em><span>softmax</span><em>→</em><span>top-p 95 %</span><em>→</em><span>tirage au sort</span><em>→</em><span>1 token ajouté</span></div></div>
+  <div class="grid g2" style="margin-top:18px">
     <div class="card"><h3>Sortie réelle du modèle (pas 800)</h3>
-<pre style="margin:0">ROMEO:
+<pre>ROMEO:
 Take your love, and I fear you are.
 
 JULIET:
@@ -356,40 +359,43 @@ JULIET:
 'Tis the like a sin, because thou art enough.
 
 JULIET:
+Hold, man, and you must not, go with me.
+
+JULIET:
 What, sir, speak, with such a child, and a dear;
 But what of Romeo? I will not jest.</pre>
-      <p class="note">« ROMEO: », graine 42 (extrait). La forme est acquise, le fond non.</p></div>
-    <div class="card"><h3>Des neurones aux probabilités</h3>
-      <p>Après « ROMEO », le modèle donne <b class="c-cy">98,4 %</b> au token « : » (99,8 % à T = 0,8). Après « ROMEO: », 99,3 % au retour à la ligne.</p>
-      <table class="t"><tr><th>Contribution au score de « : »</th><th>Valeur</th></tr>
-      <tr><td>Plongement de « ROMEO »</td><td class="num">0,00</td></tr>
-      <tr><td>Bloc de calcul n° 1 (MLP 1)</td><td class="num c-go">+6,94</td></tr>
-      <tr><td>Bloc de calcul n° 4 (MLP 4)</td><td class="num">+1,16</td></tr>
-      <tr><td>Attention n° 4</td><td class="num c-rd">−0,63</td></tr>
-      <tr><td><b>Score total</b></td><td class="num"><b>12,39</b></td></tr></table>
-      <p class="note">Le neurone n° 133 (activation −3,4) pousse le plus « : » (+0,71) : négatif × négatif donne positif. Ajouter +1,16 au score multiplie les chances par e<sup>1,16</sup> ≈ 3,2.</p></div>
+      <p class="note">« ROMEO: », 120 tokens, graine 42. La forme est acquise, le fond non.</p></div>
+    <div>
+      <div class="card"><h3>Des neurones aux probabilités</h3>
+        <p>Après « ROMEO », le modèle donne <b class="c-cy">98,4 %</b> au token « : » (99,8 % à température 0,8). Après « ROMEO: », il donne 99,3 % au retour à la ligne.</p>
+        <table class="t"><tr><th>Contribution au score de « : »</th><th>Valeur</th></tr>
+        <tr><td>Plongement de « ROMEO »</td><td class="num">0,00</td></tr>
+        <tr><td>Bloc de calcul n° 1 (MLP 1)</td><td class="num c-go">+6,94</td></tr>
+        <tr><td>Bloc de calcul n° 4 (MLP 4)</td><td class="num">+1,16</td></tr>
+        <tr><td>Attention n° 4</td><td class="num c-rd">−0,63</td></tr>
+        <tr><td><b>Score total</b></td><td class="num"><b>12,39</b></td></tr></table>
+        <p class="note">Le neurone n° 133 (activation −3,4) est celui qui pousse le plus « : » (+0,71) : négatif × négatif donne positif. Ajouter +1,16 au score multiplie les chances par e<sup>1,16</sup> ≈ 3,2.</p></div>
+      <div class="card" style="margin-top:16px"><h3>Prédire, c’est compresser</h3>
+        <svg viewBox="0 0 500 80" width="100%" font-family="Outfit,system-ui,sans-serif"><rect x="0" y="6" width="500" height="26" rx="6" fill="rgba(255,138,61,.3)" stroke="#ff8a3d"/><text x="10" y="24" fill="#fff" font-size="13">Fichier brut : 8 bits par caractère</text>
+        <rect x="0" y="44" width="125" height="26" rx="6" fill="rgba(61,216,255,.35)" stroke="#3dd8ff"/><text x="135" y="62" fill="#bfefff" font-size="13">Avec le micro-GPT : ≈ 2 bits</text></svg>
+        <p class="note">4,39 ÷ ln 2 ≈ 6,3 bits par token ; avec 3,20 caractères par token, ≈ 2 bits par caractère.</p></div>
+    </div>
   </div>
- </div>
- <div class="pl" data-t="Compresser · fiches 12 et 13">
-  <div class="phead"><div class="kicker">Planche 5</div><h2>Prédire, c’est compresser</h2></div>
-  <div class="card"><svg viewBox="0 0 1000 80" width="100%" font-family="Outfit,system-ui,sans-serif"><rect x="0" y="6" width="1000" height="28" rx="6" fill="rgba(255,138,61,.3)" stroke="#ff8a3d"/><text x="14" y="25" fill="#fff" font-size="14">Fichier brut : 8 bits par caractère</text>
-    <rect x="0" y="46" width="250" height="28" rx="6" fill="rgba(61,216,255,.35)" stroke="#3dd8ff"><animate attributeName="width" values="1000;250;250" keyTimes="0;.4;1" dur="5s" repeatCount="indefinite"/></rect><text x="264" y="65" fill="#bfefff" font-size="14">Avec le micro-GPT : ≈ 2 bits</text></svg>
-    <p class="note">4,39 ÷ ln 2 ≈ 6,3 bits par token ; avec 3,20 caractères par token, ≈ 2 bits par caractère.</p></div>
+  <div class="sectitle"><h2>Les fiches</h2></div>
   <div class="steps" data-steps="12-13"></div>
- </div>
 </section>
 
 <!-- ======================================================= ASSISTANT -->
 <section class="page" id="p-assistant">
- <div class="pl" data-t="SFT et LoRA">
   <div class="head"><div class="kicker">Planche 5 · étape 14</div><h1>Du modèle de base à l’assistant</h1>
   <p class="lead">Un modèle de base continue un texte ; il ne répond pas à une question et ne sait pas quand appeler un outil. Cette étape se pratique sur un modèle ouvert de 1 à 3 milliards de réglages, déjà pré-entraîné selon les étapes 1 à 13.</p></div>
   <div class="grid g2">
     <div class="card"><h3>Un dialogue d’entraînement (SFT)</h3>
-      <p style="opacity:.45"><b>Utilisateur</b> Quel temps fait-il à Paris ?</p>
-      <p class="c-cy"><b>Assistant</b> <code>{"name": "meteo", "arguments": {"ville": "Paris"}}</code></p>
-      <p style="opacity:.45"><b>Outil</b> <code>{"temperature": 18, "ciel": "nuageux"}</code></p>
-      <p class="c-cy"><b>Assistant</b> Il fait 18 °C à Paris, sous un ciel nuageux.</p>
+      <div style="font-size:.93rem">
+        <p style="opacity:.45"><b>Utilisateur</b> Quel temps fait-il à Paris ?</p>
+        <p class="c-cy"><b>Assistant</b> <code>{"name": "meteo", "arguments": {"ville": "Paris"}}</code></p>
+        <p style="opacity:.45"><b>Outil</b> <code>{"temperature": 18, "ciel": "nuageux"}</code></p>
+        <p class="c-cy"><b>Assistant</b> Il fait 18 °C à Paris, sous un ciel nuageux.</p></div>
       <p class="note">Grisé : masqué, l’erreur n’y est pas comptée. En couleur : ce que le modèle apprend à écrire.</p></div>
     <div class="card"><h3>LoRA : corriger avec peu de réglages</h3>
       <svg viewBox="0 0 460 160" width="100%" font-family="Outfit,system-ui,sans-serif">
@@ -402,112 +408,110 @@ But what of Romeo? I will not jest.</pre>
       <div class="formula">d = 3 072, r = 16 : 98 304 nombres au lieu de 9 437 184 → 1,04 %</div>
       <p class="note">Réentraîner tout un modèle de 3 Md avec AdamW coûte 16 octets par réglage, soit 48 Go ; avec LoRA, l’affinage tient sur une carte de 16 à 24 Go.</p></div>
   </div>
- </div>
- <div class="pl" data-t="DPO · fiche 14">
-  <div class="phead"><div class="kicker">Planche 5</div><h2>Préférences, format et fiche</h2></div>
-  <div class="grid g3">
+  <div class="grid g3" style="margin-top:18px">
     <div class="card"><h3>DPO</h3><p>Pour une même consigne, deux réponses dont l’une est préférée : on augmente la probabilité relative de la meilleure.</p><div class="formula">P(A ≻ B) = σ(score(A) − score(B))</div><p class="note">Modèle de Bradley-Terry ; la divergence KL retient le modèle près de sa version de départ.</p></div>
     <div class="card"><h3>Génération contrainte</h3><p>Le schéma JSON est une grammaire des appels valides. À chaque pas, on écarte les tokens qui casseraient le format.</p><p class="note">Le JSON s’emboîte : il faut un automate à pile, plus puissant qu’un automate fini.</p></div>
     <div class="card"><h3>Tokens spéciaux</h3><p>Des tokens réservés marquent les tours de parole : utilisateur, assistant, outil. C’est le gabarit de conversation.</p></div>
   </div>
+  <div class="sectitle"><h2>La fiche</h2></div>
   <div class="steps" data-steps="14-14"></div>
- </div>
 </section>
 
 <!-- ======================================================= AGENTS -->
 <section class="page" id="p-agents">
- <div class="pl" data-t="La boucle d’agent">
   <div class="head"><div class="kicker">Planche 5 · étape 15</div><h1>Agents et MCP</h1>
   <p class="lead">Le modèle ne fait que produire du texte. Pour agir, une application exécute ce qu’il demande. Le MCP (Model Context Protocol) standardise ce branchement, comme une prise standard : un outil écrit une fois fonctionne avec toute application compatible.</p></div>
-  <div class="grid g2">
+  <div class="grid" style="grid-template-columns:1.15fr 1fr">
     <div class="svgbox">
-      <svg viewBox="0 0 600 340" font-family="Outfit,system-ui,sans-serif">
+      <svg viewBox="0 0 600 360" font-family="Outfit,sans-serif">
         <rect x="20" y="120" width="150" height="90" rx="16" fill="rgba(169,139,255,.15)" stroke="#a98bff"/><text x="95" y="160" fill="#fff" text-anchor="middle" font-size="17" font-weight="600">Le modèle</text><text x="95" y="182" fill="#d6c8ff" text-anchor="middle" font-size="11.5">écrit du texte, et parfois</text><text x="95" y="197" fill="#d6c8ff" text-anchor="middle" font-size="11.5">un appel d’outil</text>
         <rect x="225" y="100" width="150" height="130" rx="16" fill="rgba(61,216,255,.12)" stroke="#3dd8ff"/><text x="300" y="140" fill="#fff" text-anchor="middle" font-size="17" font-weight="600">L’hôte</text><text x="300" y="162" fill="#bfefff" text-anchor="middle" font-size="11.5">l’application</text><text x="300" y="180" fill="#bfefff" text-anchor="middle" font-size="11.5">valide le schéma,</text><text x="300" y="196" fill="#bfefff" text-anchor="middle" font-size="11.5">demande confirmation,</text><text x="300" y="212" fill="#bfefff" text-anchor="middle" font-size="11.5">1 client MCP par serveur</text>
         <rect x="430" y="120" width="150" height="90" rx="16" fill="rgba(62,224,161,.12)" stroke="#3ee0a1"/><text x="505" y="155" fill="#fff" text-anchor="middle" font-size="17" font-weight="600">Le serveur</text><text x="505" y="177" fill="#c6f5e2" text-anchor="middle" font-size="11.5">outils · ressources</text><text x="505" y="193" fill="#c6f5e2" text-anchor="middle" font-size="11.5">· prompts</text>
-        <path d="M375 128H428" stroke="#c9d6ec" marker-end="url(#ar2)"/><text x="402" y="116" fill="#9fb2d2" font-size="10.5" text-anchor="middle">① tools/list</text>
+        <path d="M375 128H428" stroke="#c9d6ec" marker-end="url(#ar2)"/><text x="402" y="118" fill="#9fb2d2" font-size="10.5" text-anchor="middle">① tools/list</text>
         <path d="M170 150H223" stroke="#c9d6ec" marker-end="url(#ar2)"/><path d="M223 180H172" stroke="#c9d6ec" marker-end="url(#ar2)"/>
         <text x="197" y="140" fill="#9fb2d2" font-size="10.5" text-anchor="middle">② appel</text>
         <path d="M375 175H428" stroke="#3ee0a1" stroke-width="2" marker-end="url(#ar2)"/><text x="402" y="168" fill="#3ee0a1" font-size="10.5" text-anchor="middle">③ tools/call</text>
-        <path d="M428 200H377" stroke="#3ee0a1" stroke-width="2" marker-end="url(#ar2)"/><text x="402" y="220" fill="#3ee0a1" font-size="10.5" text-anchor="middle">résultat</text>
+        <path d="M428 200H377" stroke="#3ee0a1" stroke-width="2" marker-end="url(#ar2)"/><text x="402" y="218" fill="#3ee0a1" font-size="10.5" text-anchor="middle">résultat</text>
         <text x="197" y="200" fill="#9fb2d2" font-size="10.5" text-anchor="middle">④ message</text><text x="197" y="213" fill="#9fb2d2" font-size="10.5" text-anchor="middle">« outil »</text>
         <circle r="5" fill="#ffd166"><animateMotion dur="5s" repeatCount="indefinite" path="M170 150 H300 V128 H430 V200 H300 V180 H170"/></circle>
         <rect x="10" y="80" width="400" height="170" rx="22" fill="none" stroke="#ffd166" stroke-dasharray="7 6" stroke-opacity=".7"/>
         <text x="210" y="272" fill="#ffd166" text-anchor="middle" font-size="12">⑤ on recommence tant que le modèle appelle un outil (variant : tours restants)</text>
         <text x="300" y="40" fill="#fff" text-anchor="middle" font-size="15" font-weight="600">La boucle d’agent</text>
-        <text x="300" y="315" fill="#9fb2d2" text-anchor="middle" font-size="11.5">Transport : stdio (programme local) ou HTTP (serveur distant) · format JSON-RPC 2.0</text>
+        <text x="300" y="320" fill="#9fb2d2" text-anchor="middle" font-size="11.5">Transport : stdio (programme local) ou HTTP (serveur distant) · format JSON-RPC 2.0</text>
       </svg>
     </div>
-    <div class="col-stack">
+    <div>
       <div class="card"><h3>Un appel d’outil = deux messages</h3>
-<pre style="margin:0">→ {"jsonrpc": "2.0", "id": 2, "method": "tools/call",
+<pre>→ {"jsonrpc": "2.0", "id": 2, "method": "tools/call",
    "params": {"name": "meteo",
               "arguments": {"ville": "Paris"}}}
 ← {"jsonrpc": "2.0", "id": 2,
    "result": {"content": [{"type": "text",
               "text": "18 °C, nuageux"}]}}</pre>
         <p class="note">La réponse reprend l’identifiant 2 : c’est ainsi que l’hôte sait à quelle requête elle répond.</p></div>
-      <div class="card"><h3>Sécurité</h3><ul>
+      <div class="card" style="margin-top:16px"><h3>Sécurité</h3><ul>
         <li><b>Moindre privilège</b> : chaque serveur n’accède qu’à ce dont il a besoin.</li>
         <li><b>Injection de prompt</b> : un résultat d’outil peut contenir des instructions malveillantes ; on le traite comme une donnée, jamais comme un ordre.</li>
         <li><b>Validation</b> : on vérifie le schéma avant d’exécuter, et on demande confirmation pour les actions sensibles.</li></ul></div>
     </div>
   </div>
- </div>
- <div class="pl" data-t="Le MCP dans le temps · fiche 15">
-  <div class="phead"><div class="kicker">Planche 5</div><h2>Le MCP dans le temps</h2></div>
-  <div class="grid g2" style="align-items:start">
-    <div class="frise" data-frise="mcp"></div>
-    <div class="steps" data-steps="15-15"></div>
-  </div>
- </div>
+  <div class="sectitle"><h2>Le MCP dans le temps</h2></div>
+  <div class="frise" data-frise="mcp"></div>
+  <div class="sectitle"><h2>La fiche</h2></div>
+  <div class="steps" data-steps="15-15"></div>
 </section>
 
-<!-- ======================================================= PHYSIQUE (planches générées) -->
-<section class="page" id="p-physique"></section>
+<!-- ======================================================= PHYSIQUE -->
+<section class="page" id="p-physique">
+  <div class="head"><div class="kicker">Fil rouge</div><h1>Physique et hasard</h1>
+  <p class="lead">Le hasard a d’abord été vu comme une ignorance à réduire. Il est devenu l’un des moteurs de l’apprentissage, et il intervient dans chaque réponse d’un LLM. La physique n’est pas dans le code, mais plusieurs formules du modèle sont exactement celles de la physique statistique ou de la mécanique.</p></div>
+  <div class="grid g3" id="physCards"></div>
+  <div class="sectitle"><h2>Quand l’IA rend la pareille à la physique</h2></div>
+  <div class="frise" data-frise="sci"></div>
+</section>
 
 <!-- ======================================================= ÉCHELLES -->
 <section class="page" id="p-echelles">
- <div class="pl" data-t="Ordres de grandeur">
   <div class="head"><div class="kicker">Ordres de grandeur</div><h1>Échelles : du XOR aux modèles frontière</h1>
   <p class="lead">Il n’existe pas de nombre minimal universel de paramètres : il dépend de ce qu’on exige du modèle. Les ordres de grandeur, eux, sont bien établis.</p></div>
-  <div class="grid g2" style="align-items:start">
-    <div class="card"><table class="t">
-      <tr><th>Ordre</th><th>Exemple</th><th>Capacité</th></tr>
-      <tr><td class="num">~10</td><td>MLP 2-2-1 (9 paramètres)</td><td>apprendre le XOR</td></tr>
-      <tr><td class="num">~10⁵</td><td>LeNet-5 (~60 000)</td><td>chiffres manuscrits à ~99 %</td></tr>
-      <tr class="hlrow"><td class="num c-cy">~10⁶</td><td><b>notre micro-GPT (1,3 M)</b>, modèles TinyStories</td><td>la forme d’un texte, histoires simples</td></tr>
-      <tr><td class="num">~10⁸</td><td>GPT-2 small (124 M)</td><td>anglais fluide, raisonnement quasi nul</td></tr>
-      <tr><td class="num">~10⁹</td><td>modèles de 1 à 3 Md (Llama 3.2, Qwen 2.5, Gemma)</td><td>assistant basique, sur téléphone</td></tr>
-      <tr><td class="num">~10¹⁰</td><td>modèles de 7 à 14 Md</td><td>assistant généraliste correct, code</td></tr>
-      <tr><td class="num">10¹¹–10¹²</td><td>modèles frontière, souvent MoE</td><td>raisonnement avancé, agents</td></tr></table></div>
+  <div class="card"><table class="t">
+    <tr><th>Ordre</th><th>Exemple</th><th>Capacité</th></tr>
+    <tr><td class="num">~10</td><td>MLP 2-2-1 (9 paramètres)</td><td>apprendre le XOR</td></tr>
+    <tr><td class="num">~10⁵</td><td>LeNet-5 (~60 000)</td><td>chiffres manuscrits à ~99 %</td></tr>
+    <tr class="hlrow"><td class="num c-cy">~10⁶</td><td><b>notre micro-GPT (1,3 M)</b>, modèles TinyStories</td><td>la forme d’un texte, histoires simples</td></tr>
+    <tr><td class="num">~10⁸</td><td>GPT-2 small (124 M)</td><td>anglais fluide, raisonnement quasi nul</td></tr>
+    <tr><td class="num">~10⁹</td><td>modèles de 1 à 3 Md (Llama 3.2, Qwen 2.5, Gemma)</td><td>assistant basique, sur téléphone</td></tr>
+    <tr><td class="num">~10¹⁰</td><td>modèles de 7 à 14 Md</td><td>assistant généraliste correct, code</td></tr>
+    <tr><td class="num">10¹¹–10¹²</td><td>modèles frontière, souvent MoE</td><td>raisonnement avancé, agents</td></tr></table></div>
+  <div class="grid g2" style="margin-top:18px">
     <div class="card"><h3>La loi de Chinchilla (2022)</h3><div class="formula">L(N, D) = 1,69 + 406,4 / N^0,34 + 410,7 / D^0,28</div>
       <p>1,69 est l’entropie irréductible du texte ; le 2<sup>e</sup> terme pénalise un modèle trop petit, le 3<sup>e</sup> un manque de données. À budget fixé : <b>≈ 20 tokens par paramètre</b>.</p>
       <p class="note">Notre micro-GPT en voudrait 26 millions ; il n’en a que 313 398 différents, revus ~26 fois. Llama 3 8B a vu ~15 000 Md de tokens : près de 1 900 par paramètre, volontairement.</p></div>
-  </div>
- </div>
- <div class="pl" data-t="Compter, coûts, limites">
-  <div class="phead"><div class="kicker">Ordres de grandeur</div><h2>Compter, calculer, stocker</h2></div>
-  <div class="grid g3">
     <div class="card"><h3>Compter, vérifier</h3><div class="formula">N ≈ 12·L·d² + V·d</div>
-      <p><b>GPT-2 small</b> : blocs 85 M + plongements 38,6 M + positions 0,8 M ≈ 124 M.</p><p><b>Llama 2 7B</b> : 32 × (67,1 M + 135,3 M) + 0,26 Md = 6,74 Md.</p></div>
+      <table class="t"><tr><th>Modèle</th><th>Calcul</th><th>Total</th></tr>
+      <tr><td>GPT-2 small</td><td>blocs 85 M + plongements 38,6 M + positions 0,8 M</td><td class="num">≈ 124 M</td></tr>
+      <tr><td>Llama 2 7B</td><td>32 × (67,1 M + 135,3 M) + 0,26 Md</td><td class="num">6,74 Md</td></tr></table></div>
     <div class="card"><h3>Le coût du calcul</h3><div class="formula">C ≈ 6 · N · D  FLOPs</div><p>2N par token pour la passe avant, 4N pour la passe arrière. Llama 3 405B sur 15,6 T tokens : ≈ 3,8·10²⁵ FLOPs.</p></div>
     <div class="card"><h3>La vraie limite : la bande passante</h3><p>Générer un token impose de relire tous les poids : 14 Go pour un 7 Md en bf16. À ~3 To/s, on plafonne vers 200 tokens/s par requête. D’où la quantification (int4 : ~4 Go) et le décodage spéculatif.</p></div>
-    <div class="card"><h3>Capacité de stockage</h3><p>Environ <b>2 bits de connaissance par paramètre</b> (Allen-Zhu et Li, 2024) : 1,3 M réglages retiennent au plus ~330 Ko, moins que le corpus de 1,1 Mo.</p></div>
-    <div class="card"><h3>Les variantes standard</h3><p><b>GQA</b> : plusieurs têtes de requête partagent les mêmes K et V. <b>MoE</b> : un routeur n’active que quelques experts par token (DeepSeek-V3 : 671 Md, dont 37 Md actifs).</p></div>
+    <div class="card"><h3>Capacité de stockage</h3><p>Environ <b>2 bits de connaissance par paramètre</b> (Allen-Zhu et Li, 2024) : 1,3 M réglages retiennent au plus ~330 Ko, moins que le corpus de 1,1 Mo. Le modèle garde la forme avant le fond.</p></div>
+    <div class="card"><h3>Les variantes standard</h3><p><b>GQA</b> : plusieurs têtes de requête partagent les mêmes K et V, la mémoire d’inférence fond. <b>MoE</b> : un routeur n’active que quelques experts par token (DeepSeek-V3 : 671 Md, dont 37 Md actifs).</p></div>
     <div class="card"><h3>Mémoire d’entraînement</h3><p>Avec AdamW en précision mixte, ~16 octets par paramètre hors activations : un modèle de 7 Md demande ~112 Go rien qu’en états d’optimisation.</p></div>
   </div>
- </div>
 </section>
 
-<!-- ======================================================= DICTIONNAIRE (planches générées) -->
-<section class="page" id="p-dico"></section>
+<!-- ======================================================= DICTIONNAIRE -->
+<section class="page" id="p-dico">
+  <div class="head"><div class="kicker">Lexique du micro-GPT</div><h1>Dictionnaire</h1>
+  <p class="lead">Chaque notion du parcours et, en une à trois phrases, à quoi elle a servi. Les numéros renvoient aux étapes.</p></div>
+  <div class="searchline"><input class="q" id="dicoQ" placeholder="Filtrer : softmax, Boltzmann, LoRA…"><span class="note" id="dicoCount"></span></div>
+  <div class="chips" id="dicoFam"></div>
+  <div id="dicoList"></div>
+</section>
 
 <!-- ======================================================= ATELIERS -->
 <section class="page" id="p-ateliers">
- <div class="pl" data-t="BPE et compteur">
   <div class="head"><div class="kicker">Manipuler pour comprendre</div><h1>Ateliers</h1>
-  <p class="lead">Quatre petites expériences qui tournent dans la page, sans serveur. Flèche → pour passer à l’atelier suivant.</p></div>
+  <p class="lead">Quatre petites expériences qui tournent dans la page, sans serveur.</p></div>
   <div class="grid g2">
     <div class="card" id="at-bpe"><h3>1 · Tokeniser un texte (BPE)</h3>
       <textarea class="q" id="bpeText">le chat et le chien de la cheminée chantent le chant de la chaleur</textarea>
@@ -523,11 +527,6 @@ But what of Romeo? I will not jest.</pre>
       <div class="bigout" id="pOut"></div>
       <div class="formula" id="pDetail"></div>
       <div class="note" id="pMore"></div></div>
-  </div>
- </div>
- <div class="pl" data-t="Température et LoRA">
-  <div class="phead"><div class="kicker">Ateliers</div><h2>Générer et adapter</h2></div>
-  <div class="grid g2">
     <div class="card" id="at-temp"><h3>3 · Température et top-p</h3>
       <div class="slider"><label>Température T</label><input type="range" id="tT" min="0.1" max="3" step="0.05" value="1"><output id="tTo">1,00</output></div>
       <div class="slider"><label>top-p</label><input type="range" id="tP" min="0.5" max="1" step="0.01" value="0.95"><output id="tPo">0,95</output></div>
@@ -540,24 +539,58 @@ But what of Romeo? I will not jest.</pre>
       <div class="formula" id="lDetail"></div>
       <svg viewBox="0 0 400 40" width="100%"><rect x="0" y="8" width="400" height="24" rx="6" fill="#0a1730" stroke="#27467a"/><rect id="lBar" x="0" y="8" width="4" height="24" rx="6" fill="#3dd8ff"/></svg></div>
   </div>
- </div>
 </section>
 
-<!-- ======================================================= PARCOURS, FRISE, FICHES, REPÈRES (planches générées) -->
-<section class="page" id="p-parcours"></section>
-<section class="page" id="p-frise"></section>
-<section class="page" id="p-fmaths"></section>
-<section class="page" id="p-fphys"></section>
-<section class="page" id="p-finfo"></section>
-<section class="page" id="p-reperes"></section>
+<!-- ======================================================= PARCOURS -->
+<section class="page" id="p-parcours">
+  <div class="head"><div class="kicker">Parcours en 15 étapes</div><h1>Construire un micro-GPT de zéro</h1>
+  <p class="lead">Du texte brut au modèle qui écrit, puis à l’assistant qui répond et à l’agent qui agit. Les étapes 1 à 13 ont été réalisées et mesurées avec micro_gpt.py (1 315 968 réglages, entraîné sur Shakespeare). Les étapes 14 et 15, en violet, se pratiquent sur un modèle ouvert plus grand.</p>
+  <p class="note">Chaque fiche suit le même plan : pourquoi, ce qui se passe, entrée → sortie, le lien avec les maths, l’informatique, et un repère chiffré. Flèches ← → pour passer d’une fiche à l’autre, Échap pour fermer.</p></div>
+  <div class="svgbox" id="parcOverview" style="margin-bottom:18px"></div>
+  <div class="grid g3" id="parcCards" style="margin-bottom:26px"></div>
+  <div id="allPlanches"></div>
+</section>
+
+<!-- ======================================================= FRISE -->
+<section class="page" id="p-frise">
+  <div class="head"><div class="kicker">Antiquité → 2026</div><h1>Frise : des probabilités aux agents</h1>
+  <p class="lead">Les jalons qui mènent au micro-GPT et aux LLM actuels. ★★ tournant historique · ★ jalon majeur · ☆ jalon mineur.</p></div>
+  <div class="chips" id="friseChips"></div>
+  <div class="frise" id="friseAll"></div>
+</section>
+
+<!-- ======================================================= FICHES PAR DISCIPLINE -->
+<section class="page" id="p-fmaths">
+  <div class="head"><div class="kicker">Fiches Mathématiques</div><h1>Les mathématiques du micro-GPT</h1>
+  <p class="lead">Probabilités, algèbre linéaire, analyse et optimisation : chaque notion, et l’étape où elle sert.</p></div>
+  <div data-domain="m"></div>
+</section>
+<section class="page" id="p-fphys">
+  <div class="head"><div class="kicker">Fiches Physiques</div><h1>Les analogies physiques</h1>
+  <p class="lead">Boltzmann, Euler, le recuit, les verres de spin : la physique n’est pas dans le code, mais ses formules y sont.</p></div>
+  <div data-domain="p"></div>
+</section>
+<section class="page" id="p-finfo">
+  <div class="head"><div class="kicker">Fiches Informatiques</div><h1>L’informatique du micro-GPT</h1>
+  <p class="lead">Structures de données, automates, tests, mémoire, protocoles : tout ce qui fait tourner le modèle et le relie au monde.</p></div>
+  <div data-domain="i"></div>
+</section>
+
+<!-- ======================================================= REPÈRES -->
+<section class="page" id="p-reperes">
+  <div class="head"><div class="kicker">Récapitulatif</div><h1>Les repères du parcours</h1>
+  <p class="lead">Ce que chaque étape produit, et le nombre qui permet de vérifier qu’elle a réussi.</p></div>
+  <div class="card"><table class="t" id="repTable"></table></div>
+  <div class="sectitle"><h2>Points de rigueur</h2><span>corrections et précisions apportées au parcours</span></div>
+  <div id="rigList"></div>
+</section>
 
 <!-- ======================================================= APPROCHE -->
 <section class="page" id="p-approche">
- <div class="pl" data-t="Choisir son approche">
   <div class="head"><div class="kicker">Au-delà du micro-GPT</div><h1>Quelle approche IA selon le volume de données ?</h1>
   <p class="lead">La taille des données seule ne décide pas, mais les ordres de grandeur sont clairs. L’unité est le token (~0,75 mot) : une page de documentation fait ~1 000 tokens, 10 000 pages ~10 millions.</p></div>
   <div class="grid g4" id="approchCards"></div>
-  <div class="grid g2">
+  <div class="grid g2" style="margin-top:18px">
     <div class="card"><h3>Repères utiles</h3><p><b>Chinchilla</b> : ~20 tokens par paramètre. Un modèle de 1 Md demande ~20 Md de tokens, un 7 Md ~140 Md. Llama 3 a vu plus de 15 000 Md de tokens.</p><p><b>Pour le fine-tuning</b>, le nombre d’exemples compte plus que le volume : quelques milliers d’exemples soignés valent mieux que des centaines de milliers d’exemples bruités.</p></div>
     <div class="card"><h3>Passer au fine-tuning ou plus lourd quand…</h3><ul>
       <li>le RAG et le prompting ont été testés sur un jeu d’évaluation et plafonnent ;</li>
@@ -566,75 +599,230 @@ But what of Romeo? I will not jest.</pre>
       <li>la langue ou le domaine est mal couvert (dialecte rare, notation propriétaire) ;</li>
       <li>le volume d’appels rend un petit modèle spécialisé moins cher qu’un gros généraliste.</li></ul></div>
   </div>
- </div>
 </section>
 
 <!-- ======================================================= CODE -->
 <section class="page" id="p-code">
- <div class="pl" data-t="Le fichier">
   <div class="head"><div class="kicker">Un seul fichier, 662 lignes</div><h1>Le code : micro_gpt.py</h1>
   <p class="lead">Tokenizer BPE, Transformer décodeur seul, entraînement AdamW et échantillonnage avec cache KV. Seule dépendance : PyTorch.</p></div>
   <div class="grid g4" id="codeSections"></div>
-  <div class="card"><h3>Installer et lancer (Codespace)</h3>
-<pre style="margin:0">pip install torch --index-url https://download.pytorch.org/whl/cpu
+  <div class="grid g2" style="margin-top:18px">
+    <div class="card"><h3>Installer et lancer (Codespace)</h3>
+<pre>pip install torch --index-url https://download.pytorch.org/whl/cpu
 python micro_gpt.py check            # 7 vérifications (~16 s)
 python micro_gpt.py train            # ~35 min sur 1 cœur
 python micro_gpt.py sample --prompt "ROMEO:"</pre>
-    <p class="note">Placer le fichier hors du dépôt MathSite (par exemple ~/micro-gpt), pour ne committer ni input.txt ni micro_gpt.pt.</p></div>
- </div>
- <div class="pl" data-t="Extraits du code">
-  <div class="phead"><div class="kicker">micro_gpt.py</div><h2>Trois extraits clés</h2></div>
-  <div class="grid g3">
-    <div class="card"><h3>La boucle, en 5 gestes</h3>
-<pre style="margin:0">x, y = get_batch(splits["train"], cfg)  # 1
-_, loss = model(x, y)                   # 2
+      <p class="note">Placer le fichier hors du dépôt MathSite (par exemple ~/micro-gpt), pour ne committer ni input.txt ni micro_gpt.pt.</p></div>
+    <div class="card"><h3>La boucle d’apprentissage, en 5 gestes</h3>
+<pre>x, y = get_batch(splits["train"], cfg)   # 1. lot aléatoire
+_, loss = model(x, y)                    # 2. passe avant + perte
 opt.zero_grad(set_to_none=True)
-loss.backward()                         # 3
-clip_grad_norm_(model.parameters(), 1.0)# 4
-opt.step()                              # 5</pre>
-      <p class="note">1 lot aléatoire · 2 passe avant + perte · 3 rétropropagation · 4 écrêtage · 5 mise à jour AdamW.</p></div>
+loss.backward()                          # 3. rétropropagation
+clip_grad_norm_(model.parameters(), 1.0) # 4. écrêtage
+opt.step()                               # 5. mise à jour AdamW</pre></div>
     <div class="card"><h3>Un étage du Transformer</h3>
-<pre style="margin:0">def forward(self, h, cos, sin, cache=None):
-    a = h + self.drop(self.attn(
-            self.norm1(h), cos, sin, cache))
-    return a + self.drop(self.mlp(
-            self.norm2(a)))</pre>
+<pre>def forward(self, h, cos, sin, cache=None):
+    a = h + self.drop(self.attn(self.norm1(h), cos, sin, cache))
+    return a + self.drop(self.mlp(self.norm2(a)))</pre>
       <p class="note">Échange entre positions (attention), puis calcul position par position (SwiGLU).</p></div>
     <div class="card"><h3>Tirer le token suivant</h3>
-<pre style="margin:0">probs = F.softmax(logits / temperature, -1)
+<pre>probs = F.softmax(logits / temperature, dim=-1)
 sorted_p, idx = probs.sort(descending=True)
-outside = (sorted_p.cumsum(-1)
-           - sorted_p) > top_p
-sorted_p[outside] = 0.0          # top-p
+outside = (sorted_p.cumsum(-1) - sorted_p) > top_p
+sorted_p[outside] = 0.0                  # top-p
 return int(torch.multinomial(probs, 1))</pre></div>
   </div>
- </div>
 </section>
 
-<!--ATTENTION-->
+<!-- ======================================================= PARCOURS LLM : L'ATTENTION -->
+<section class="page pa" id="p-attention">
+  <div class="head"><div class="kicker">Parcours en 8 étapes · 1 h 30 à 3 h</div>
+  <h1>Comment un LLM comprend une phrase : le parcours de l’attention</h1>
+  <p class="lead">Du « mot suivant le plus probable » jusqu’aux têtes d’attention et au masque causal, avec des calculs que tu peux refaire à la main et des outils pour les modifier toi-même.</p>
+  <p class="note">Pour suivre : fractions, exponentielle, produit de deux vecteurs. Les encadrés orange « Pour aller plus loin » ajoutent les matrices, les dimensions et les ordres de grandeur réels : ils sont facultatifs en première lecture.</p>
+  <div class="pa-row" style="margin-top:10px"><button class="btn on" id="pa-more" type="button">Encadrés « Pour aller plus loin » : affichés</button></div></div>
+
+  <nav class="pa-nav" id="pa-nav">
+    <button data-pa="1">1 Prédire</button><button data-pa="2">2 Vecteurs</button><button data-pa="3">3 Attention</button><button data-pa="4">4 Q, K, V</button><button data-pa="5">5 Softmax</button><button data-pa="6">6 Masque</button><button data-pa="7">7 Têtes</button><button data-pa="8">8 Couches et quiz</button>
+  </nav>
+
+  <!-- ÉTAPE 1 -->
+  <div class="pa-step" id="pa-e1">
+    <div class="pa-h"><span class="pa-n">1</span><div><div class="kicker">Étape 1</div><h2>Un LLM prédit le mot suivant</h2></div></div>
+    <p class="lead">Un grand modèle de langage (LLM) fait une seule chose : à partir d’un début de texte, il calcule une probabilité pour chaque morceau de mot possible à la suite.</p>
+    <div class="grid g2">
+      <div class="card"><h3>Texte : « Le chien aboie … »</h3><div class="bars" id="pa-next"></div>
+        <p class="note">Valeurs d’illustration. Le modèle choisit un mot selon ces probabilités, l’ajoute au texte, puis recommence. Une réponse entière se construit ainsi, morceau par morceau.</p></div>
+      <div>
+        <div class="card"><p style="margin-top:0">Pour bien prédire, le modèle doit savoir <b>quels mots du contexte comptent</b> pour le mot qu’il traite. Dans « aboie », le mot utile est « chien », pas « Le ». Le mécanisme qui fait cela s’appelle l’<b>attention</b>, et c’est l’objet de ce parcours.</p></div>
+        <div class="card pa-more"><span class="tag p">Pour aller plus loin</span><p>Formellement, le modèle estime <code>P(x<sub>t</sub> | x<sub>1</sub>,…,x<sub>t−1</sub>)</code> et la probabilité d’un texte s’écrit comme un produit de ces termes (règle de la chaîne). L’entraînement minimise l’entropie croisée entre la distribution prédite et le vrai token suivant.</p></div>
+      </div>
+    </div>
+    <div class="pa-link">Dans le micro-GPT : <span data-step="3">étape 3, les exercices « devine la suite »</span> et <span data-step="12">étape 12, faire parler le modèle</span>.</div>
+  </div>
+
+  <!-- ÉTAPE 2 -->
+  <div class="pa-step" id="pa-e2">
+    <div class="pa-h"><span class="pa-n">2</span><div><div class="kicker">Étape 2</div><h2>Des mots aux vecteurs</h2></div></div>
+    <p class="lead">Un ordinateur ne lit pas des mots, il calcule sur des nombres. Le texte est donc transformé en deux temps.</p>
+    <div class="grid g3">
+      <div class="card"><h3>1. Tokenisation</h3><p>Le texte est découpé en <em>tokens</em> (mots ou morceaux de mots) : <code>Le | chien | aboie</code>. Chaque token a un numéro dans un dictionnaire.</p></div>
+      <div class="card"><h3>2. Embedding</h3><p>Chaque numéro est remplacé par un vecteur appris, une liste de nombres. Des tokens de sens proche ont des vecteurs proches.</p></div>
+      <div class="card"><h3>Exemple pédagogique à 4 dimensions</h3>
+        <table class="t pa-tbl"><tr><th></th><th>dim 1</th><th>dim 2</th><th>dim 3</th><th>dim 4</th></tr>
+        <tr><th>Le</th><td>1</td><td>0</td><td>1</td><td>0</td></tr><tr><th>chien</th><td>0</td><td>2</td><td>0</td><td>1</td></tr><tr><th>aboie</th><td>1</td><td>1</td><td>0</td><td>1</td></tr></table>
+        <p class="note">Valeurs inventées pour que les calculs restent lisibles, réutilisées jusqu’à l’étape 6.</p></div>
+    </div>
+    <div class="card hl" style="margin-top:18px"><b>À retenir.</b> Le nombre de dimensions, noté <code>d_model</code>, est la longueur de la liste de nombres qui représente un mot. Ici : 4 nombres. Dans un grand modèle comme GPT-3 : <b>12 288 nombres par mot</b>. Comparer deux mots, c’est donc faire une recherche dans un espace à 12 288 dimensions.</div>
+    <div class="card pa-more" style="margin-top:18px"><span class="tag p">Pour aller plus loin</span>
+      <p>La séquence devient une matrice <code>X ∈ ℝ<sup>n×d_model</sup></code> (n tokens en lignes ; d_model colonnes). Dans un modèle de la taille de GPT-3, d_model vaut 12 288 ; dans un modèle de 7 milliards de paramètres, 4096. Les 4096 coordonnées ne sont pas des concepts lisibles un par un : ce sont les coordonnées d’un point dans un espace où les directions portent le sens.</p>
+      <p>Détail souvent omis : l’attention ne connaît pas l’ordre des tokens. On injecte la position par des encodages positionnels (sinusoïdaux, appris, ou rotatifs RoPE dans les modèles récents).</p></div>
+    <div class="pa-link">Dans le micro-GPT : <span data-step="2">étape 2, le vocabulaire BPE de 4 096 tokens</span> · d_model = 128 · position par rotation RoPE (<span data-step="6">étape 6</span>).</div>
+  </div>
+
+  <!-- ÉTAPE 3 -->
+  <div class="pa-step" id="pa-e3">
+    <div class="pa-h"><span class="pa-n">3</span><div><div class="kicker">Étape 3</div><h2>L’idée de l’attention : donner des poids aux mots</h2></div></div>
+    <p class="lead">Pour comprendre un mot, le modèle calcule un poids pour chaque mot du contexte. Les poids sont positifs et leur somme vaut 1 : c’est une répartition de l’attention.</p>
+    <div class="grid g2">
+      <div class="card"><h3>« Un grand chien est visible dans le ciel » — mot observé : « chien »</h3><div class="bars" id="pa-sky"></div>
+        <p>Les indices « grand », « visible » et « ciel » suggèrent qu’il s’agit de la constellation du Grand Chien, pas de l’animal. Le vecteur de « chien » va donc se charger surtout de l’information de ces mots. <span class="note">(Poids d’illustration : un vrai modèle apprend ses poids, ils ne sont pas aussi lisibles.)</span></p></div>
+      <div>
+        <div class="card hl">Retiens ceci : l’attention est un <b>mélange pondéré</b>. Le nouveau vecteur d’un mot = somme des informations des autres mots, chacune multipliée par son poids.</div>
+        <div class="card" style="margin-top:18px"><h3>Pourquoi « Q, K, V » ? L’analogie de la bibliothèque</h3><p>Tu cherches un livre. Ta <b class="c-cy">question</b> (Query, Q) est comparée à l’<b class="c-go">étiquette</b> de chaque livre (Key, K). Les livres dont l’étiquette correspond le mieux sont ouverts, et tu lis leur <b class="c-rd">contenu</b> (Value, V), en prenant plus de ses pages quand la correspondance est forte.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÉTAPE 4 -->
+  <div class="pa-step" id="pa-e4">
+    <div class="pa-h"><span class="pa-n">4</span><div><div class="kicker">Étape 4</div><h2>Q, K, V : le calcul complet, que tu peux modifier</h2></div></div>
+    <p class="lead">Chaque token produit trois vecteurs : une requête Q, une clé K et une valeur V. Le score entre deux mots est le produit scalaire de la requête de l’un avec la clé de l’autre.</p>
+    <div class="formula" style="font-size:1.05rem">Attention(Q, K, V) = softmax( Q·Kᵀ / √d ) · V</div>
+    <div class="grid g2">
+      <div class="card"><h3>Le produit scalaire</h3><p>Pour deux vecteurs <code>(a,b,c,d)</code> et <code>(a′,b′,c′,d′)</code> : <code>aa′ + bb′ + cc′ + dd′</code>. Plus il est grand, plus les vecteurs « pointent dans la même direction », donc plus les mots sont jugés compatibles.</p></div>
+      <div class="card"><h3>Pourquoi diviser par √d ?</h3><p>Plus il y a de dimensions, plus les produits scalaires deviennent grands, et le softmax se bloque sur une seule valeur. Diviser par √d garde les scores dans une plage raisonnable.</p></div>
+    </div>
+    <div class="card hl" style="margin-top:18px"><h3>Calculateur d’attention</h3>
+      <p class="note">Pour garder les calculs lisibles, les matrices W<sub>Q</sub>, W<sub>K</sub>, W<sub>V</sub> sont l’identité : Q = K = V = X. Modifie les nombres.</p>
+      <div class="grid" style="grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);align-items:start">
+        <div><table class="t pa-tbl" id="pa-xin"></table>
+          <div class="pa-row">
+            <label>Mot qui regarde <select id="pa-qsel"><option value="0">Le</option><option value="1" selected>chien</option><option value="2">aboie</option></select></label>
+            <label><input type="checkbox" id="pa-sqrt" checked> diviser par √d</label>
+            <label><input type="checkbox" id="pa-causal"> masque causal</label>
+            <button class="btn" id="pa-reset" type="button">Valeurs de départ</button></div></div>
+        <div id="pa-calc"></div>
+      </div></div>
+    <p>Avec les valeurs de départ et le mot « chien » qui regarde, on lit : <code>[0 ; 5 ; 3]</code> comme scores bruts, <code>[0 ; 2,5 ; 1,5]</code> après division par √4 = 2, puis les poids <code>[0,057 ; 0,690 ; 0,254]</code> après softmax. Le nouveau vecteur de « chien » mélange donc surtout lui-même (69 %), puis « aboie » (25 %), puis un peu de « Le » (6 %).</p>
+    <div class="card pa-more"><span class="tag p">Pour aller plus loin</span>
+      <p>En notation matricielle : <code>Q = X W<sub>Q</sub></code>, <code>K = X W<sub>K</sub></code>, <code>V = X W<sub>V</sub></code>, où <code>W<sub>Q</sub>, W<sub>K</sub> ∈ ℝ<sup>d_model×d_k</sup></code> et <code>W<sub>V</sub> ∈ ℝ<sup>d_model×d_v</sup></code>. Le produit <code>QKᵀ</code> est de taille n×n : le coût en temps et en mémoire est en <code>O(n²·d)</code>, ce qui explique la difficulté des longs contextes.</p>
+      <p>Si les coordonnées de q et k sont centrées de variance 1, <code>q·k</code> a une variance d_k. La division par √d_k ramène l’écart-type à 1 et évite les gradients quasi nuls du softmax saturé. Essaie l’expérience ci-dessous.</p>
+      <div class="pa-row"><button class="btn" id="pa-sim" type="button">Simuler 2 000 produits scalaires</button></div>
+      <pre id="pa-simout">Clique pour lancer la simulation.</pre></div>
+    <div class="pa-link">Dans le micro-GPT : chaque tête travaille sur 32 nombres, d’où la <span data-step="6">division par √32 (étape 6)</span> ; le calcul fusionné de cette formule fait gagner un facteur ~4,7 (<span data-step="9">étape 9</span>).</div>
+  </div>
+
+  <!-- ÉTAPE 5 -->
+  <div class="pa-step" id="pa-e5">
+    <div class="pa-h"><span class="pa-n">5</span><div><div class="kicker">Étape 5</div><h2>Softmax : transformer des scores en poids</h2></div></div>
+    <p class="lead">Les scores bruts peuvent être négatifs ou très grands. Le softmax les convertit en poids positifs de somme 1 grâce à l’exponentielle.</p>
+    <div class="formula">poids<sub>i</sub> = exp(score<sub>i</sub>) / Σ<sub>j</sub> exp(score<sub>j</sub>)</div>
+    <div class="grid g2">
+      <div class="card"><h3>Joue avec le score de « chien »</h3>
+        <p class="note">Scores de « Le » et « aboie » fixés à 1 et 2. Fais varier celui de « chien ».</p>
+        <div class="slider"><label for="pa-sm">Score de « chien »</label><input type="range" id="pa-sm" min="-2" max="12" step="0.5" value="8"><output id="pa-smv">8</output></div>
+        <div class="bars" id="pa-smbars"></div><pre id="pa-smcalc" style="margin-top:10px"></pre></div>
+      <div>
+        <div class="card hl">Pour les scores [1 ; 8 ; 2], le calcul donne exp(1) ≈ 2,72, exp(8) ≈ 2 981, exp(2) ≈ 7,39, soit une somme ≈ 2 991, et des poids 0,09 %, 99,66 % et 0,25 %. <b>L’exponentielle amplifie les écarts</b> : un score un peu plus grand prend presque toute l’attention.</div>
+        <div class="card pa-more" style="margin-top:18px"><span class="tag p">Pour aller plus loin</span><p>Le softmax est invariant par translation : <code>softmax(s) = softmax(s − c)</code>. Les implémentations soustraient le maximum pour la stabilité numérique. Sa jacobienne vaut <code>diag(p) − ppᵀ</code>, nulle quand p est quasi one-hot : c’est la saturation qui motive le facteur 1/√d_k.</p></div>
+      </div>
+    </div>
+    <div class="pa-link">Côté physique : c’est le facteur de Boltzmann (<span data-go="physique">Physique &amp; hasard</span>). Pour jouer avec la température, voir l’<span data-go="ateliers">atelier 3</span>.</div>
+  </div>
+
+  <!-- ÉTAPE 6 -->
+  <div class="pa-step" id="pa-e6">
+    <div class="pa-h"><span class="pa-n">6</span><div><div class="kicker">Étape 6</div><h2>Le masque : GPT ne doit pas voir le futur</h2></div></div>
+    <p class="lead">Un modèle qui génère du texte prédit le mot suivant. S’il pouvait lire ce mot dans les données d’entrée, il tricherait. On le force donc à ne regarder que les mots précédents (attention <b>causale</b>). Un modèle comme BERT, qui lit un texte complet pour le comprendre, peut regarder dans les deux sens (attention <b>bidirectionnelle</b>).</p>
+    <div class="grid g2">
+      <div class="card"><h3>Matrice d’attention de « Le chien aboie »</h3>
+        <div class="pa-row"><label><input type="radio" name="pa-mode" value="bi" checked> Bidirectionnelle (BERT)</label><label><input type="radio" name="pa-mode" value="ca"> Causale (GPT)</label></div>
+        <table class="t pa-tbl pa-heat" id="pa-heat"></table>
+        <p class="note">Chaque ligne est le mot qui regarde, chaque colonne le mot regardé. Chaque ligne somme à 1. En mode causal, la partie au-dessus de la diagonale vaut exactement 0.</p></div>
+      <div class="card"><h3>Pas à pas : ligne de « chien »</h3>
+<pre>scores / √d          [ 0,00 ;  2,50 ;  1,50 ]
+masque (futur = −∞)  [ 0,00 ;  2,50 ;  −∞   ]
+exponentielles       [ 1,00 ; 12,18 ;  0    ]  somme = 13,18
+poids                [ 0,076 ; 0,924 ; 0,000 ]</pre>
+        <p>Sans masque, « chien » donnait 25 % de son attention à « aboie », un mot qu’il ne devrait pas connaître. Avec le masque, cette part est redistribuée sur les mots autorisés.</p></div>
+    </div>
+    <div class="rig"><b>Erreur classique.</b> Le masque ne se met pas après le softmax. On remplace d’abord les scores interdits par −∞, <em>puis</em> on applique le softmax. Comme exp(−∞) = 0, ces positions reçoivent un poids exactement nul, et les poids restants se renormalisent à 1.</div>
+    <div class="card pa-more"><span class="tag p">Pour aller plus loin</span><p>Le masque est une matrice additive <code>M<sub>ij</sub> = 0</code> si j ≤ i, <code>−∞</code> sinon : <code>softmax(QKᵀ/√d_k + M)V</code>. Il permet d’entraîner sur toute la séquence en parallèle : chaque position prédit son token suivant, sans fuite d’information (<em>teacher forcing</em>). À l’inférence, le cache KV évite de recalculer K et V des tokens déjà traités.</p></div>
+    <div class="pa-link">Dans le micro-GPT : la causalité est le <span data-step="8">contrôle 5 de l’étape 8</span> ; le cache KV sert à la <span data-step="12">génération (étape 12)</span>.</div>
+  </div>
+
+  <!-- ÉTAPE 7 -->
+  <div class="pa-step" id="pa-e7">
+    <div class="pa-h"><span class="pa-n">7</span><div><div class="kicker">Étape 7</div><h2>Plusieurs têtes : plusieurs regards en parallèle</h2></div></div>
+    <p class="lead">Une phrase contient beaucoup de relations à la fois : qui fait l’action, qui possède quoi, quand, où. Une seule attention ne peut pas tout suivre. Le Transformer en lance donc plusieurs, appelées <b>têtes</b>, avec chacune ses propres W<sub>Q</sub>, W<sub>K</sub>, W<sub>V</sub>.</p>
+    <div class="card"><h3>« Le chien que Marie a adopté aboie »</h3>
+      <div class="grid g4">
+        <div><span class="tag m">Tête A</span><p>Qui aboie ? Elle relie « aboie » à « chien ».</p></div>
+        <div><span class="tag p">Tête B</span><p>Qui a adopté ? Elle relie « adopté » à « Marie ».</p></div>
+        <div><span class="tag i">Tête C</span><p>Quel nom est complété par « que » ? Elle relie « que » à « chien ».</p></div>
+        <div><span class="tag a">Tête D</span><p>Regard local sur les voisins immédiats.</p></div></div>
+      <p class="note">Description pédagogique : dans un vrai modèle, les rôles des têtes sont appris, souvent moins nets, et ne sont pas programmés.</p></div>
+    <p>Les sorties des têtes sont <b>concaténées</b> (mises bout à bout), puis remélangées par une dernière matrice W<sub>O</sub>. La compréhension de la phrase émerge de la combinaison, aucune tête ne la porte seule.</p>
+    <div class="grid g2">
+      <div class="card"><h3>Y a-t-il une recherche dans un espace à 12 288 dimensions ?</h3>
+        <p>Oui, mais pas en une seule recherche : elle est découpée en plusieurs recherches plus petites.</p>
+        <p>Chaque mot est une liste de 12 288 nombres (pour un modèle de la taille de GPT-3). Comparer deux mots, c’est multiplier leurs nombres deux à deux puis additionner : 12 288 petites multiplications, faites en même temps par la carte graphique, et pour tous les couples de mots à la fois.</p>
+        <p>Mais le modèle coupe la liste en morceaux, un par tête. Pour GPT-3, il y a 96 têtes de 128 nombres chacune (12 288 ÷ 96 = 128). Chaque tête fait sa propre recherche sur ses 128 nombres, et les 96 résultats sont remis bout à bout à la fin.</p></div>
+      <div class="card hl"><h3>Les vraies dimensions</h3>
+        <p><code>d_model</code> est le <b>nombre de dimensions du vecteur de chaque token</b>. <code>d_head</code> est le nombre de dimensions que chaque tête utilise. W<sub>Q</sub> d’une tête a <code>d_model</code> lignes et <code>d_head</code> colonnes.</p>
+        <div class="pa-row">
+          <label>d_model <select id="pa-dm"><option>128</option><option>512</option><option>768</option><option selected>4096</option><option>8192</option><option>12288</option></select></label>
+          <label>têtes h <select id="pa-hh"><option>4</option><option>8</option><option>12</option><option selected>32</option><option>64</option><option>96</option></select></label></div>
+        <pre id="pa-dimout"></pre>
+        <p class="note">GPT-3 : d_model = 12288 et h = 96. Notre micro-GPT : d_model = 128 et h = 4.</p></div>
+    </div>
+    <div class="card pa-more" style="margin-top:18px"><span class="tag p">Pour aller plus loin</span>
+      <p>Pour chaque tête i : <code>W<sub>Q</sub><sup>(i)</sup>, W<sub>K</sub><sup>(i)</sup>, W<sub>V</sub><sup>(i)</sup> ∈ ℝ<sup>d_model×d_head</sup></code> avec <code>d_head = d_model / h</code>. Chaque tête produit <code>n × d_head</code>, la concaténation redonne <code>n × d_model</code>, et <code>W<sub>O</sub> ∈ ℝ<sup>d_model×d_model</sup></code> projette le résultat. Le facteur de normalisation est √d_head, et non √d_model.</p>
+      <p>Les modèles récents partagent souvent K et V entre plusieurs têtes (grouped-query attention) pour réduire le cache KV.</p></div>
+  </div>
+
+  <!-- ÉTAPE 8 -->
+  <div class="pa-step" id="pa-e8">
+    <div class="pa-h"><span class="pa-n">8</span><div><div class="kicker">Étape 8</div><h2>Les couches, puis ce qui reste à découvrir</h2></div></div>
+    <p class="lead">Un LLM empile des dizaines de couches identiques en structure. À chaque couche, chaque token devient une représentation plus riche du contexte.</p>
+    <div class="iobox" style="margin:14px 0"><span>Embeddings + position</span><em>→</em><span class="c-cy" style="border-color:var(--cy)">Attention multi-têtes</span><em>→</em><span>Réseau dense (MLP)</span><em>→</em><span class="c-cy" style="border-color:var(--cy)">× 48 couches</span><em>→</em><span>Probabilités du mot suivant</span></div>
+    <p>Après des dizaines de couches, le vecteur de « chien » n’est plus un simple mot : c’est un condensé de tout ce que le modèle a retenu du reste de la phrase. À la dernière couche, le vecteur du dernier token sert à calculer les probabilités du mot suivant, ce qui nous ramène à l’étape 1.</p>
+    <div class="card pa-more"><span class="tag p">Pour aller plus loin</span>
+      <p>Chaque couche contient aussi des connexions résiduelles, une normalisation (LayerNorm ou RMSNorm) et un MLP qui représente en général la majorité des paramètres. Avec d_model = 4096, les 4 matrices d’attention d’une couche pèsent 4 × 4096² ≈ 67 millions de paramètres ; sur 48 couches, environ 3,2 milliards pour l’attention seule.</p>
+      <p>Pour aller plus loin : entraînement (pré-entraînement, ajustement par instructions, RLHF), mise à l’échelle, quantification, mélange d’experts, attention linéaire et modèles à espace d’états.</p></div>
+    <div class="pa-link">Dans le micro-GPT : 4 couches seulement, et 4 × 128² = 65 536 réglages d’attention par couche (<span data-go="reseau">schéma du réseau</span>).</div>
+
+    <div class="sectitle"><h2>Quiz de fin de parcours</h2><span id="pa-score"></span></div>
+    <div class="card" id="pa-quiz"></div>
+  </div>
+  <p class="note" style="margin-top:20px">Les exemples numériques de ce parcours sont volontairement simplifiés. Les calculs des étapes 4, 5 et 6 sont recalculés par la page à chaque modification.</p>
+</section>
 
 <!-- ======================================================= À PROPOS -->
 <section class="page" id="p-apropos">
- <div class="pl" data-t="À propos">
   <div class="head"><div class="kicker">Maquette</div><h1>À propos d’IASite</h1>
   <p class="lead">IASite est la maquette d’un cinquième site de la famille FamZakSites, sur le modèle de QuantumSite : le parcours IA de A à Z et le savoir qui se cache derrière.</p></div>
   <div class="grid g3">
     <div class="card"><h3>Sources</h3><ul><li>Micro-GPT en 15 étapes : le schéma</li><li>parcours_micro_gpt.docx</li><li>Micro-GPT : les notions du parcours</li><li>Export de la conversation « du micro-GPT au MCP »</li><li>Quelle approche IA selon le volume de données ?</li><li>Parcours LLM : comprendre l’attention</li></ul></div>
-    <div class="card"><h3>Lecture en planches</h3><p>Comme la frise de QuantumSite, chaque page tient dans l’écran, sans ascenseur vertical. On passe d’une planche à l’autre avec la barre du bas ou les flèches ← → du clavier ; au bout d’une page, la flèche mène à la page suivante.</p><p class="note">Touche / : rechercher · Échap : fermer.</p></div>
+    <div class="card"><h3>Arborescence</h3><p><b>Barre haute</b> : les chapitres du parcours, des fondations aux agents, plus Dictionnaire et Ateliers.</p><p><b>Barre latérale</b> : les ressources transversales (frise, 15 fiches, fiches par discipline, repères, approche, code).</p></div>
     <div class="card"><h3>En ligne</h3><p>Un seul fichier HTML autonome, sans dépendance hormis la police Outfit (repli sur la police système hors ligne), publié depuis le dépôt <code>mikhub-dev/IASite</code> sur GitHub Pages. Le lien « ← FamZakSites » ramène au portail.</p></div>
   </div>
- </div>
 </section>
-</div>
 
-<nav class="planche-nav" id="pnav">
-  <a id="pPrev" rel="prev"></a>
-  <div class="mid"><span id="pTitle"></span><span class="dots" id="pDots"></span></div>
-  <a id="pNext" rel="next"></a>
-</nav>
+<footer><span>IASite · maquette locale · projet IA Level 1</span><span>Touche <code>/</code> : rechercher · ← → : fiches · Échap : fermer</span></footer>
 </main>
 </div>
 
-<div id="measure" aria-hidden="true"></div>
-<div class="modal" id="modal"><div class="mpages" id="mpages"></div></div>
+<div class="modal" id="modal"><div class="fiche" id="fiche"></div></div>
 <div class="search" id="search"><div class="box"><input class="q" id="sq" placeholder="Rechercher une notion, une étape, une date…" autocomplete="off"><div class="res" id="sres"></div></div></div>

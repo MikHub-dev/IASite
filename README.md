@@ -11,12 +11,11 @@ Cinquième site de la famille FamZakSites, sur le modèle de QuantumSite : le pa
 - **Parcours LLM : comprendre l'attention** (8 étapes, calculateur Q·K·V, softmax, masque causal, têtes, quiz).
 - **Ateliers** : tokenisation BPE, compteur de réglages, température et top-p, budget LoRA.
 
-## Lecture en planches
+## Navigation
 
-Comme la frise de QuantumSite, chaque page tient dans l'écran, sans ascenseur vertical. On passe d'une planche à l'autre avec la barre du bas ou les flèches ← → du clavier ; au bout d'une page, la flèche mène à la page suivante. Touche `/` : rechercher. Échap : fermer.
-
-- Le contenu est réparti automatiquement en planches. Le texte des vignettes a une taille fixe (facteur 1,32 de la planche de référence) ; les planches sans vignette s'agrandissent pour remplir l'écran.
-- La planche occupe toute la largeur entre le menu vertical et le bord droit.
+- Barre du haut : les chapitres du parcours, des fondations aux agents, plus Dictionnaire et Ateliers.
+- Barre latérale : les ressources transversales (frise, parcours en 15 étapes, fiches par discipline, repères, approche, code, parcours de l'attention).
+- Les pages défilent verticalement. Un clic sur une étape ouvre sa fiche ; dans une fiche, ← → passent d'une étape à l'autre. Touche `/` : rechercher. Échap : fermer.
 - Dans les listes groupées (dictionnaire, fiches, parcours), le titre de chaque famille est une vignette placée dans la grille, pour que les familles s'enchaînent sans couper la ligne. Les frises restent en liste verticale.
 
 ## Fichiers
@@ -25,12 +24,9 @@ Comme la frise de QuantumSite, chaque page tient dans l'écran, sans ascenseur v
 | --- | --- |
 | `index.html` | Le site complet, en un seul fichier autonome (généré). |
 | `src/1_head.html` | En-tête et feuille de style. |
-| `src/2_body.html` | Pages et planches. |
-| `src/2b_attention.html` | Pages du parcours « comprendre l'attention ». |
-| `src/3_data_steps.js` | Les 15 étapes et leurs repères. |
-| `src/4_data_lex.js` | Lexique, frise, analogies physiques, approches, sections du code. |
-| `src/5_app.js` | Moteur de planches, navigation, recherche, ateliers. |
-| `src/5b_attention.js` | Outils interactifs du parcours « attention » et démarrage. |
+| `src/2_body.html` | Les pages du site. |
+| `src/3_app.js` | Données (étapes, lexique, frise…), navigation, recherche, ateliers et parcours de l'attention. |
+| `src/4_tail.html` | Fin du document. |
 | `build.sh` | Reconstruit `index.html` à partir de `src/`. |
 | `robots.txt` | Interdit l'indexation, comme sur le portail (la balise `meta robots` de `index.html` fait de même). |
 
