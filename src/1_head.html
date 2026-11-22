@@ -42,6 +42,13 @@ header.top{position:sticky;top:0;z-index:50;height:78px;display:flex;align-items
 .back:hover{color:var(--txt);text-decoration:none}
 .brand{font-weight:700;font-size:1.12rem;white-space:nowrap;color:var(--txt);cursor:pointer;display:flex;align-items:center;gap:8px}
 .brand i{font-style:normal;color:var(--cy)}
+/* ascenseurs toujours visibles quand il y a de quoi défiler (Chrome/ChromeOS : barres classiques, non masquées) */
+::-webkit-scrollbar{width:13px;height:13px}
+::-webkit-scrollbar-track{background:#050c1a}
+::-webkit-scrollbar-thumb{background:#2d4c78;border-radius:8px;border:3px solid #050c1a}
+::-webkit-scrollbar-thumb:hover{background:#3dd8ff}
+::-webkit-scrollbar-corner{background:#050c1a}
+@supports not selector(::-webkit-scrollbar){html{scrollbar-color:#2d4c78 #050c1a}}
 nav.main{display:flex;gap:4px;margin-left:auto;overflow-x:auto;scrollbar-width:none}
 nav.main::-webkit-scrollbar{display:none}
 nav.main a{color:#c6d4ec;padding:8px 13px;border-radius:9px;font-size:.96rem;white-space:nowrap;cursor:pointer}
