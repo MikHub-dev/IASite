@@ -548,7 +548,6 @@ But what of Romeo? I will not jest.</pre>
   <p class="lead">Du texte brut au modèle qui écrit, puis à l’assistant qui répond et à l’agent qui agit. Les étapes 1 à 13 ont été réalisées et mesurées avec micro_gpt.py (1 315 968 réglages, entraîné sur Shakespeare). Les étapes 14 et 15, en violet, se pratiquent sur un modèle ouvert plus grand.</p>
   <p class="note">Chaque fiche suit le même plan : pourquoi, ce qui se passe, entrée → sortie, le lien avec les maths, l’informatique, et un repère chiffré. Flèches ← → pour passer d’une fiche à l’autre, Échap pour fermer.</p></div>
   <div class="svgbox" id="parcOverview" style="margin-bottom:18px"></div>
-  <div class="grid g3" id="parcCards" style="margin-bottom:26px"></div>
   <div id="allPlanches"></div>
 </section>
 
@@ -640,8 +639,7 @@ return int(torch.multinomial(probs, 1))</pre></div>
   <div class="head"><div class="kicker">Parcours en 8 étapes · 1 h 30 à 3 h</div>
   <h1>Comment un LLM comprend une phrase : le parcours de l’attention</h1>
   <p class="lead">Du « mot suivant le plus probable » jusqu’aux têtes d’attention et au masque causal, avec des calculs que tu peux refaire à la main et des outils pour les modifier toi-même.</p>
-  <p class="note">Pour suivre : fractions, exponentielle, produit de deux vecteurs. Les encadrés orange « Pour aller plus loin » ajoutent les matrices, les dimensions et les ordres de grandeur réels : ils sont facultatifs en première lecture.</p>
-  <div class="pa-row" style="margin-top:10px"><button class="btn on" id="pa-more" type="button">Encadrés « Pour aller plus loin » : affichés</button></div></div>
+  <p class="note">Pour suivre : fractions, exponentielle, produit de deux vecteurs. Les encadrés orange « Pour aller plus loin » ajoutent les matrices, les dimensions et les ordres de grandeur réels : ils sont facultatifs en première lecture.</p></div>
 
   <nav class="pa-nav" id="pa-nav">
     <button data-pa="1">1 Prédire</button><button data-pa="2">2 Vecteurs</button><button data-pa="3">3 Attention</button><button data-pa="4">4 Q, K, V</button><button data-pa="5">5 Softmax</button><button data-pa="6">6 Masque</button><button data-pa="7">7 Têtes</button><button data-pa="8">8 Couches et quiz</button>

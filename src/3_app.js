@@ -502,6 +502,40 @@ function show(id){
   $$('[data-go]').forEach(a => { if(a.closest('nav.main,aside.side')) a.classList.toggle('on', a.dataset.go === id); });
   document.title = 'IASite — ' + TITLES[id];
   window.scrollTo({top:0});
+  buildToc(document.getElementById('p-'+id));
+}
+
+/* ---------- barre de navigation interne (collante) sur chaque page ---------- */
+const TOC_SKIP = ['p-accueil','p-attention','p-dico','p-frise'];   // accueil : page vitrine ; attention : barre propre ; dico, frise : filtres collants
+function tocLabel(el){
+  if(el.classList.contains('pgroup')){ const k = el.querySelector('.fk'), b = el.querySelector('.pgl b');
+    return (k ? k.textContent.match(/\d+/)[0] + ' · ' : '') + (b ? b.textContent : ''); }
+  const c = el.cloneNode(true); c.querySelectorAll('span,small,.fk,.tag').forEach(x => x.remove());
+  let t = c.textContent.replace(/\s+/g,' ').trim();
+  return t.length > 38 ? t.slice(0,36).replace(/\s\S*$/,'') + '…' : t;
+}
+function tocJump(el, nav){
+  const off = 78 + (nav ? nav.offsetHeight : 0) + 14;
+  window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - off, behavior:'smooth'});
+}
+function buildToc(sec){
+  if(!sec || TOC_SKIP.includes(sec.id)) return;
+  const old = sec.querySelector(':scope > .toc-nav'); if(old) old.remove();
+  const inSec = el => !el.closest('.head,.modal,.toc-nav');
+  const lvl1 = [...sec.querySelectorAll('h2, .famtitle, .pgroup')].filter(inSec);
+  const all  = [...sec.querySelectorAll('h2, .famtitle, .pgroup, h3')].filter(el => inSec(el) && !(el.parentElement && el.parentElement.closest('.pgroup .lex, .famtitle')));
+  let t;
+  if(all.length <= 14) t = all;
+  else {                                   // trop de titres : les grandes parties, plus les cartes situées avant la première
+    const first = lvl1[0];
+    t = all.filter(el => lvl1.includes(el) || (el.tagName === 'H3' && first && (first.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_PRECEDING)));
+  }
+  if(t.length < 2) return;
+  const nav = document.createElement('nav'); nav.className = 'pa-nav toc-nav';
+  nav.innerHTML = t.map((el,i) => `<button type="button" data-toc="${i}">${tocLabel(el)}</button>`).join('');
+  nav.addEventListener('click', e => { const b = e.target.closest('[data-toc]'); if(b) tocJump(t[+b.dataset.toc], nav); });
+  const head = sec.querySelector(':scope > .head');
+  head ? head.after(nav) : sec.prepend(nav);
 }
 function go(id){ if(location.hash.slice(1) === id) show(id); else location.hash = id; }
 window.addEventListener('hashchange', () => show(location.hash.slice(1)));
@@ -539,11 +573,12 @@ $('#homePlanches').innerHTML = PLANCHES.map(p => `
     <path id="parcLine" d="M60 150 H1440" stroke="#3dd8ff" stroke-opacity=".5" stroke-width="3"/>
     <circle r="7" fill="#fff"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#parcLine"/></animateMotion></circle>
     ${g}<text x="750" y="250" text-anchor="middle" fill="#93a8cb" font-size="13">Cliquez sur une étape pour ouvrir sa fiche</text></svg>`;
-  $('#parcCards').innerHTML = PLANCHES.map(p=>`<div class="card" style="cursor:pointer" ${p.range?`data-scroll="pg-${p.n}"`:'data-go="fondations"'}><div class="kicker">Planche ${p.n} / 5</div><b>${p.t}</b><br><span class="note">${p.rep}</span></div>`).join('');
   document.addEventListener('click', e => { const c = e.target.closest('[data-scroll]'); if(c){ const t = document.getElementById(c.dataset.scroll); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); } });
 })();
-$('#allPlanches').innerHTML = `<div class="lex">` + PLANCHES.filter(p=>p.range).map(p => `<div class="famtitle" id="pg-${p.n}"><span class="fk">Planche ${p.n} / 5</span>${p.t}<span>${p.s}</span><span>Repère <b class="c-go">${p.rep}</b> · <a data-go="${p.go}">chapitre illustré →</a></span></div>` +
-    STEPS.filter(s=>s.n>=p.range[0]&&s.n<=p.range[1]).map(stepCard).join('')).join('') + '</div>';
+$('#allPlanches').innerHTML = PLANCHES.map(p => `<div class="pgroup" id="pg-${p.n}">
+  <div class="pghead"><div class="pgl"><span class="fk">Planche ${p.n} / 5${p.range?` · étapes ${p.range[0]} à ${p.range[1]}`:''}</span><b>${p.t}</b><span class="pgs">${p.s}</span></div>
+  <div class="pgr">Repère <b class="c-go">${p.rep}</b><a data-go="${p.go}">chapitre illustré →</a></div></div>` +
+  (p.range ? `<div class="lex">` + STEPS.filter(s=>s.n>=p.range[0]&&s.n<=p.range[1]).map(stepCard).join('') + `</div>` : '') + `</div>`).join('');
 
 /* ---------- fiche modale ---------- */
 let curStep = null;
@@ -802,10 +837,7 @@ TITLES.attention = "Parcours LLM : l’attention";
     `<div class="row${i===hi?' hi':''}"><span>${it[0]}</span><div class="bar"><i style="width:${Math.max(it[1]*100,.4).toFixed(1)}%"></i></div><span>${pct(it[1])}</span></div>`).join('');
 
   /* encadrés et navigation interne */
-  const sec = q('#p-attention'), mb = q('#pa-more');
-  mb.onclick = () => { const off = sec.classList.toggle('nomore'); mb.classList.toggle('on', !off);
-    mb.textContent = 'Encadrés « Pour aller plus loin » : ' + (off ? 'masqués' : 'affichés'); };
-  q('#pa-nav').addEventListener('click', e => { const b = e.target.closest('[data-pa]'); if(b) q('#pa-e'+b.dataset.pa).scrollIntoView({behavior:'smooth', block:'start'}); });
+  q('#pa-nav').addEventListener('click', e => { const b = e.target.closest('[data-pa]'); if(b) tocJump(q('#pa-e'+b.dataset.pa), q('#pa-nav')); });
 
   bars(q('#pa-next'), [['fort',.46],['la nuit',.18],['fort,',.12],['encore',.10],['(autres)',.14]], 0);
   bars(q('#pa-sky'), [['Le',.02],['Grand',.31],['Chien',.08],['est',.01],['visible',.24],['dans',.01],['le',.01],['ciel',.32]], 7);

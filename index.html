@@ -227,11 +227,12 @@ footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);color:v
 .pa-nav{position:sticky;top:78px;z-index:20;display:flex;gap:8px;flex-wrap:wrap;padding:12px 0;margin:4px 0 6px;background:linear-gradient(rgba(5,11,26,.96),rgba(5,11,26,.9));border-bottom:1px solid var(--line)}
 .pa-nav button{border:1px solid var(--line2);background:#081227;color:#c9d6ec;border-radius:99px;padding:6px 14px;cursor:pointer;font-family:inherit;font-size:.88rem}
 .pa-nav button:hover{border-color:var(--cy);color:#fff}
+/* filtres du dictionnaire et de la frise : restent visibles en défilant */
+#dicoFam,#friseChips{position:sticky;top:78px;z-index:20;padding:12px 0;margin-bottom:12px;background:linear-gradient(rgba(5,11,26,.96),rgba(5,11,26,.9));border-bottom:1px solid var(--line)}
 .pa-step{margin-top:34px;padding-top:26px;border-top:1px solid var(--line);scroll-margin-top:150px}
 .pa-h{display:flex;gap:16px;align-items:center;margin-bottom:6px}
 .pa-h h2{margin:0}.pa-h .kicker{margin-bottom:2px}
 .pa-n{flex:none;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:1.2rem;background:radial-gradient(circle at 35% 30%,#7fe6ff,#1677b8);color:#021021;box-shadow:0 0 18px rgba(61,216,255,.45)}
-.pa.nomore .pa-more{display:none}
 .card.pa-more{border-left:3px solid var(--or);background:rgba(60,32,12,.45)}
 .pa-link{margin-top:16px;font-size:.92rem;color:var(--mut);border-left:3px solid var(--cy);padding:7px 14px;background:rgba(61,216,255,.05);border-radius:0 10px 10px 0}
 .pa-link span{color:var(--cy);cursor:pointer;text-decoration:underline dotted}
@@ -262,6 +263,21 @@ footer{margin-top:60px;padding-top:18px;border-top:1px solid var(--line);color:v
 .lex .famtitle a{color:var(--cy)}
 .lex .step{min-height:0}
 .lex .famtitle{scroll-margin-top:100px}
+/* vignette d'en-tête d'une famille : toute une ligne, ses notions regroupées dessous */
+.lex .famtitle{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center;padding:16px 22px;margin-top:16px;font-size:1.25rem}
+.lex .famtitle:first-child{margin-top:0}
+.lex .famtitle span{font-size:.95rem}
+/* parcours : une planche en bandeau pleine largeur, ses étapes dessous */
+.pgroup{margin:0 0 30px;scroll-margin-top:100px}
+.pghead{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;border:1px dashed rgba(61,216,255,.55);border-radius:14px;padding:16px 22px;background:rgba(61,216,255,.07);margin-bottom:14px}
+.pghead .pgl{display:flex;flex-direction:column;gap:5px}
+.pghead .fk{font-size:.72rem;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--cy)}
+.pghead .pgl b{font-size:1.25rem;font-weight:600;color:#fff}
+.pghead .pgr b{font-size:1rem;font-weight:600}
+.pgroup .lex{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.pghead .pgs{font-size:.88rem;color:var(--cy)}
+.pghead .pgr{display:flex;flex-direction:column;align-items:flex-end;gap:5px;font-size:.88rem;color:var(--mut)}
+.pghead .pgr a{color:var(--cy);cursor:pointer}
 </style>
 </head>
 <body>
@@ -814,7 +830,6 @@ But what of Romeo? I will not jest.</pre>
   <p class="lead">Du texte brut au modèle qui écrit, puis à l’assistant qui répond et à l’agent qui agit. Les étapes 1 à 13 ont été réalisées et mesurées avec micro_gpt.py (1 315 968 réglages, entraîné sur Shakespeare). Les étapes 14 et 15, en violet, se pratiquent sur un modèle ouvert plus grand.</p>
   <p class="note">Chaque fiche suit le même plan : pourquoi, ce qui se passe, entrée → sortie, le lien avec les maths, l’informatique, et un repère chiffré. Flèches ← → pour passer d’une fiche à l’autre, Échap pour fermer.</p></div>
   <div class="svgbox" id="parcOverview" style="margin-bottom:18px"></div>
-  <div class="grid g3" id="parcCards" style="margin-bottom:26px"></div>
   <div id="allPlanches"></div>
 </section>
 
@@ -906,8 +921,7 @@ return int(torch.multinomial(probs, 1))</pre></div>
   <div class="head"><div class="kicker">Parcours en 8 étapes · 1 h 30 à 3 h</div>
   <h1>Comment un LLM comprend une phrase : le parcours de l’attention</h1>
   <p class="lead">Du « mot suivant le plus probable » jusqu’aux têtes d’attention et au masque causal, avec des calculs que tu peux refaire à la main et des outils pour les modifier toi-même.</p>
-  <p class="note">Pour suivre : fractions, exponentielle, produit de deux vecteurs. Les encadrés orange « Pour aller plus loin » ajoutent les matrices, les dimensions et les ordres de grandeur réels : ils sont facultatifs en première lecture.</p>
-  <div class="pa-row" style="margin-top:10px"><button class="btn on" id="pa-more" type="button">Encadrés « Pour aller plus loin » : affichés</button></div></div>
+  <p class="note">Pour suivre : fractions, exponentielle, produit de deux vecteurs. Les encadrés orange « Pour aller plus loin » ajoutent les matrices, les dimensions et les ordres de grandeur réels : ils sont facultatifs en première lecture.</p></div>
 
   <nav class="pa-nav" id="pa-nav">
     <button data-pa="1">1 Prédire</button><button data-pa="2">2 Vecteurs</button><button data-pa="3">3 Attention</button><button data-pa="4">4 Q, K, V</button><button data-pa="5">5 Softmax</button><button data-pa="6">6 Masque</button><button data-pa="7">7 Têtes</button><button data-pa="8">8 Couches et quiz</button>
@@ -1598,6 +1612,40 @@ function show(id){
   $$('[data-go]').forEach(a => { if(a.closest('nav.main,aside.side')) a.classList.toggle('on', a.dataset.go === id); });
   document.title = 'IASite — ' + TITLES[id];
   window.scrollTo({top:0});
+  buildToc(document.getElementById('p-'+id));
+}
+
+/* ---------- barre de navigation interne (collante) sur chaque page ---------- */
+const TOC_SKIP = ['p-accueil','p-attention','p-dico','p-frise'];   // accueil : page vitrine ; attention : barre propre ; dico, frise : filtres collants
+function tocLabel(el){
+  if(el.classList.contains('pgroup')){ const k = el.querySelector('.fk'), b = el.querySelector('.pgl b');
+    return (k ? k.textContent.match(/\d+/)[0] + ' · ' : '') + (b ? b.textContent : ''); }
+  const c = el.cloneNode(true); c.querySelectorAll('span,small,.fk,.tag').forEach(x => x.remove());
+  let t = c.textContent.replace(/\s+/g,' ').trim();
+  return t.length > 38 ? t.slice(0,36).replace(/\s\S*$/,'') + '…' : t;
+}
+function tocJump(el, nav){
+  const off = 78 + (nav ? nav.offsetHeight : 0) + 14;
+  window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - off, behavior:'smooth'});
+}
+function buildToc(sec){
+  if(!sec || TOC_SKIP.includes(sec.id)) return;
+  const old = sec.querySelector(':scope > .toc-nav'); if(old) old.remove();
+  const inSec = el => !el.closest('.head,.modal,.toc-nav');
+  const lvl1 = [...sec.querySelectorAll('h2, .famtitle, .pgroup')].filter(inSec);
+  const all  = [...sec.querySelectorAll('h2, .famtitle, .pgroup, h3')].filter(el => inSec(el) && !(el.parentElement && el.parentElement.closest('.pgroup .lex, .famtitle')));
+  let t;
+  if(all.length <= 14) t = all;
+  else {                                   // trop de titres : les grandes parties, plus les cartes situées avant la première
+    const first = lvl1[0];
+    t = all.filter(el => lvl1.includes(el) || (el.tagName === 'H3' && first && (first.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_PRECEDING)));
+  }
+  if(t.length < 2) return;
+  const nav = document.createElement('nav'); nav.className = 'pa-nav toc-nav';
+  nav.innerHTML = t.map((el,i) => `<button type="button" data-toc="${i}">${tocLabel(el)}</button>`).join('');
+  nav.addEventListener('click', e => { const b = e.target.closest('[data-toc]'); if(b) tocJump(t[+b.dataset.toc], nav); });
+  const head = sec.querySelector(':scope > .head');
+  head ? head.after(nav) : sec.prepend(nav);
 }
 function go(id){ if(location.hash.slice(1) === id) show(id); else location.hash = id; }
 window.addEventListener('hashchange', () => show(location.hash.slice(1)));
@@ -1635,11 +1683,12 @@ $('#homePlanches').innerHTML = PLANCHES.map(p => `
     <path id="parcLine" d="M60 150 H1440" stroke="#3dd8ff" stroke-opacity=".5" stroke-width="3"/>
     <circle r="7" fill="#fff"><animateMotion dur="9s" repeatCount="indefinite"><mpath href="#parcLine"/></animateMotion></circle>
     ${g}<text x="750" y="250" text-anchor="middle" fill="#93a8cb" font-size="13">Cliquez sur une étape pour ouvrir sa fiche</text></svg>`;
-  $('#parcCards').innerHTML = PLANCHES.map(p=>`<div class="card" style="cursor:pointer" ${p.range?`data-scroll="pg-${p.n}"`:'data-go="fondations"'}><div class="kicker">Planche ${p.n} / 5</div><b>${p.t}</b><br><span class="note">${p.rep}</span></div>`).join('');
   document.addEventListener('click', e => { const c = e.target.closest('[data-scroll]'); if(c){ const t = document.getElementById(c.dataset.scroll); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); } });
 })();
-$('#allPlanches').innerHTML = `<div class="lex">` + PLANCHES.filter(p=>p.range).map(p => `<div class="famtitle" id="pg-${p.n}"><span class="fk">Planche ${p.n} / 5</span>${p.t}<span>${p.s}</span><span>Repère <b class="c-go">${p.rep}</b> · <a data-go="${p.go}">chapitre illustré →</a></span></div>` +
-    STEPS.filter(s=>s.n>=p.range[0]&&s.n<=p.range[1]).map(stepCard).join('')).join('') + '</div>';
+$('#allPlanches').innerHTML = PLANCHES.map(p => `<div class="pgroup" id="pg-${p.n}">
+  <div class="pghead"><div class="pgl"><span class="fk">Planche ${p.n} / 5${p.range?` · étapes ${p.range[0]} à ${p.range[1]}`:''}</span><b>${p.t}</b><span class="pgs">${p.s}</span></div>
+  <div class="pgr">Repère <b class="c-go">${p.rep}</b><a data-go="${p.go}">chapitre illustré →</a></div></div>` +
+  (p.range ? `<div class="lex">` + STEPS.filter(s=>s.n>=p.range[0]&&s.n<=p.range[1]).map(stepCard).join('') + `</div>` : '') + `</div>`).join('');
 
 /* ---------- fiche modale ---------- */
 let curStep = null;
@@ -1898,10 +1947,7 @@ TITLES.attention = "Parcours LLM : l’attention";
     `<div class="row${i===hi?' hi':''}"><span>${it[0]}</span><div class="bar"><i style="width:${Math.max(it[1]*100,.4).toFixed(1)}%"></i></div><span>${pct(it[1])}</span></div>`).join('');
 
   /* encadrés et navigation interne */
-  const sec = q('#p-attention'), mb = q('#pa-more');
-  mb.onclick = () => { const off = sec.classList.toggle('nomore'); mb.classList.toggle('on', !off);
-    mb.textContent = 'Encadrés « Pour aller plus loin » : ' + (off ? 'masqués' : 'affichés'); };
-  q('#pa-nav').addEventListener('click', e => { const b = e.target.closest('[data-pa]'); if(b) q('#pa-e'+b.dataset.pa).scrollIntoView({behavior:'smooth', block:'start'}); });
+  q('#pa-nav').addEventListener('click', e => { const b = e.target.closest('[data-pa]'); if(b) tocJump(q('#pa-e'+b.dataset.pa), q('#pa-nav')); });
 
   bars(q('#pa-next'), [['fort',.46],['la nuit',.18],['fort,',.12],['encore',.10],['(autres)',.14]], 0);
   bars(q('#pa-sky'), [['Le',.02],['Grand',.31],['Chien',.08],['est',.01],['visible',.24],['dans',.01],['le',.01],['ciel',.32]], 7);
