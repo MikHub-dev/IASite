@@ -26,6 +26,8 @@ Cinquième site de la famille FamZakSites, sur le modèle de QuantumSite : le pa
 | `src/1_head.html` | En-tête et feuille de style. |
 | `src/2_body.html` | Les pages du site. |
 | `src/3_app.js` | Données (étapes, lexique, frise…), navigation, recherche, ateliers et parcours de l'attention. |
+| `src/quiz-famzak.js` | Moteur de quiz commun aux sites FamZakSites (score, barre, meilleur score gardé, « À revoir »). |
+| `src/5_progres.js` | Quiz de 3 questions par chapitre, fiches d’étapes vues et panneau « Ma progression » (page du parcours), gardés sur l’appareil. |
 | `src/4_tail.html` | Fin du document. |
 | `build.sh` | Reconstruit `index.html` à partir de `src/`. |
 | `robots.txt` | Interdit l'indexation, comme sur le portail (la balise `meta robots` de `index.html` fait de même). |

@@ -602,6 +602,7 @@ let curStep = null;
 function openStep(n){
   const s = STEPS.find(x => x.n === n); if(!s) return;
   curStep = n;
+  if(typeof marquerEtapeVue === 'function') marquerEtapeVue(n);
   const p = PLANCHES.find(p => p.range && n>=p.range[0] && n<=p.range[1]);
   $('#fiche').innerHTML = `<button class="x" title="Fermer (Échap)">✕</button>
     <div class="kicker">Planche ${p.n} · ${p.t} · étape ${n} / 15</div>
@@ -987,6 +988,7 @@ Facteur de normalisation : √${dh} = ${Math.sqrt(dh).toFixed(2).replace('.',','
     if(j !== Q[i].a) b.classList.add('bad'); else score++;
     const w = box.querySelector('.pa-why'); w.hidden = false; w.textContent = (j === Q[i].a ? 'Exact. ' : 'Pas tout à fait. ') + Q[i].w;
     done++; q('#pa-score').textContent = 'Score : ' + score + ' / ' + done + (done === Q.length ? (score === Q.length ? ' · parcours maîtrisé' : ' · relis les étapes des questions manquées') : '');
+    if(done === Q.length && typeof noterQuizAttention === 'function') q('#pa-score').textContent += noterQuizAttention(score, Q.length);
   });
   drawQuiz();
 
