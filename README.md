@@ -37,3 +37,5 @@ Après une modification dans `src/`, lancer `./build.sh` puis committer `index.h
 ## Sources
 
 Projet « IA Level 1 » : *Micro-GPT en 15 étapes : le schéma*, *parcours_micro_gpt.docx*, *Micro-GPT : les notions du parcours et à quoi elles servent*, l'export de la conversation « Construire une IA, du micro-GPT au MCP », *Quelle approche IA selon le volume de données ?* et *Parcours LLM : comprendre l'attention*.
+
+Progression liée au code élève : `famzak-progres.js` (même fichier sur les sites FamZakSites) envoie les progrès des jeux au serveur de suivi de RoutineSite (routes `/progres/…`, Worker 1.6) sous le code de l'élève, saisi une fois (bouton 👤 en bas à droite). Sans code, tout reste sur l'appareil.
