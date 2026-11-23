@@ -7,6 +7,7 @@
    Utilisation :
      FamZakQuiz.monter(element, { cle: "iasite:donnees", titre: "Quiz", questions: [
        { q: "Question ?", o: ["choix 0", "choix 1", "choix 2"], a: 1, e: "Explication." } ] });
+     Options facultatives : melanger (false pour garder l'ordre), surReponse(q, juste), surFin(score, total).
      FamZakQuiz.meilleur("iasite:donnees")  →  { score, total, date } ou null
    Clé de stockage : "famzak:quiz:" + cle. */
 (function () {
@@ -97,6 +98,7 @@
       function choisir(btn, ok) {
         zone.querySelectorAll("button").forEach(function (b) { b.disabled = true; if (+b.dataset.k === q.a) b.classList.add("fzq-bon"); });
         if (ok) st.score++; else { btn.classList.add("fzq-faux"); st.rates.push(q); }
+        if (typeof opts.surReponse === "function") opts.surReponse(q, ok);
         retour.className = "fzq-retour " + (ok ? "fzq-bon" : "fzq-faux");
         retour.innerHTML = "<b>" + (ok ? "Bonne réponse !" : "Pas tout à fait.") + "</b>" + (q.e || "");
         tete.querySelector(".fzq-score").textContent = "Score : " + st.score;
