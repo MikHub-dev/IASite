@@ -998,3 +998,185 @@ Facteur de normalisation : √${dh} = ${Math.sqrt(dh).toFixed(2).replace('.',','
 })();
 
 show(location.hash.slice(1) || 'accueil');
+
+/* ---------- Piliers 3D de l’accueil ---------- */
+/* IASite : les 3 illustrations de l'accueil en 3D (SVG + petit moteur de projection, sans bibliothèque). */
+(function(){
+const F=600, D=600, NS='http://www.w3.org/2000/svg';
+const RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const f1=v=>Math.round(v*10)/10;
+const L=(()=>{const v=[-.45,.75,.55],n=Math.hypot(...v);return v.map(a=>a/n)})();
+
+function rot(p,c){const x1=p[0]*c.cy+p[2]*c.sy, z1=-p[0]*c.sy+p[2]*c.cy;return [x1,p[1]*c.cp-z1*c.sp,p[1]*c.sp+z1*c.cp];}
+function proj(v,c){const s=F/(D-v[2]);return [c.x+v[0]*s,c.y-v[1]*s,s];}
+const pts=P=>P.map(p=>f1(p[0])+','+f1(p[1])).join(' ');
+function mix(a,b,k){return 'rgb('+a.map((v,i)=>Math.round(v+(b[i]-v)*k)).join(',')+')';}
+
+/* primitives */
+function ring(r,y,n,a0,a1,fn){const o=[];for(let i=0;i<=n;i++){const a=a0+(a1-a0)*i/n;o.push(fn?fn(r,a):[r*Math.cos(a),y,r*Math.sin(a)]);}return o;}
+function segs(P,st,k){const o=[];k=k||1;for(let i=0;i<P.length-1;i+=k)o.push(Object.assign({t:'l',p:P.slice(i,Math.min(i+k,P.length-1)+1)},st));return o;}
+function box(x,z,w,h,y0,col,alpha,edge){
+  const a=w/2,y1=y0+h,o=[];
+  const V=(dx,dy,dz)=>[x+dx,dy,z+dz];
+  const faces=[
+    [[0,1,0],[V(-a,y1,-a),V(a,y1,-a),V(a,y1,a),V(-a,y1,a)]],
+    [[1,0,0],[V(a,y0,-a),V(a,y0,a),V(a,y1,a),V(a,y1,-a)]],
+    [[-1,0,0],[V(-a,y0,-a),V(-a,y1,-a),V(-a,y1,a),V(-a,y0,a)]],
+    [[0,0,1],[V(-a,y0,a),V(-a,y1,a),V(a,y1,a),V(a,y0,a)]],
+    [[0,0,-1],[V(-a,y0,-a),V(a,y0,-a),V(a,y1,-a),V(-a,y1,-a)]]];
+  for(const [n,p] of faces)o.push({t:'f',p,n,col,alpha,edge,top:n[1]===1});
+  return o;
+}
+
+function Scene(svg,cfg){
+  this.svg=svg;this.cfg=cfg;this.yaw=0;this.uy=0;this.up=0;this.hy=0;this.hp=0;this.thy=0;this.thp=0;
+  this.g=document.createElementNS(NS,'g');svg.appendChild(this.g);
+  if(cfg.over){const o=document.createElementNS(NS,'g');o.innerHTML=cfg.over;svg.appendChild(o);}
+  this.static=cfg.build();
+  let drag=null;this.moved=false;
+  svg.style.touchAction='pan-y';svg.style.cursor='grab';
+  svg.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,uy:this.uy,up:this.up};this.moved=false;svg.style.cursor='grabbing';});
+  window.addEventListener('pointerup',()=>{if(drag){drag=null;svg.style.cursor='grab';}});
+  svg.addEventListener('pointermove',e=>{
+    const r=svg.getBoundingClientRect();
+    if(drag){const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>4)this.moved=true;
+      this.uy=drag.uy+dx*.012;this.up=Math.max(-.35,Math.min(.5,drag.up+dy*.006));}
+    else{this.thy=((e.clientX-r.left)/r.width-.5)*.7;this.thp=((e.clientY-r.top)/r.height-.5)*.35;}
+  });
+  svg.addEventListener('pointerleave',()=>{this.thy=0;this.thp=0;});
+  svg.addEventListener('click',e=>{if(this.moved){e.stopPropagation();e.preventDefault();this.moved=false;}},true);
+}
+Scene.prototype.frame=function(t){
+  const c=this.cfg;
+  this.hy+=(this.thy-this.hy)*.08;this.hp+=(this.thp-this.hp)*.08;
+  const yaw=(RM?0:c.auto(t))+this.uy+this.hy+(c.yaw0||0), pit=c.pitch+this.up+this.hp;
+  const C={cy:Math.cos(yaw),sy:Math.sin(yaw),cp:Math.cos(pit),sp:Math.sin(pit),x:c.cx,y:c.cy};
+  const prims=this.static.concat(c.dyn?c.dyn(RM?0:t):[]);
+  const items=[];
+  for(const pr of prims){
+    const V=pr.p.map(p=>rot(p,C));
+    let d=0;for(const v of V)d+=v[2];d/=V.length;d+=(pr.b||0);
+    let k=1;
+    if(pr.n){const n=rot(pr.n,C),cx=V.reduce((s,v)=>s+v[0],0)/V.length,cy=V.reduce((s,v)=>s+v[1],0)/V.length,cz=V.reduce((s,v)=>s+v[2],0)/V.length;
+      if(n[0]*(0-cx)+n[1]*(0-cy)+n[2]*(D-cz)<=0)continue;
+      k=Math.max(0,n[0]*L[0]+n[1]*L[1]+n[2]*L[2]);}
+    items.push({pr,V,d,k});
+  }
+  items.sort((a,b)=>a.d-b.d);
+  let o='';
+  for(const it of items){
+    const pr=it.pr,P=it.V.map(v=>proj(v,C));
+    if(pr.t==='f'){
+      const fill=pr.top?mix(pr.col,[255,255,255],.35+.4*it.k):mix([4,20,40],pr.col,.35+.65*it.k);
+      o+=`<polygon points="${pts(P)}" fill="${fill}" fill-opacity="${pr.alpha}"${pr.edge?` stroke="${pr.edge}" stroke-width=".7" stroke-opacity=".8"`:''} stroke-linejoin="round"/>`;
+    }else if(pr.t==='poly'){
+      o+=`<polygon points="${pts(P)}" fill="${pr.fill}"${pr.op!=null?` opacity="${pr.op}"`:''}${pr.s?` stroke="${pr.s}" stroke-opacity="${pr.so||1}"`:''}/>`;
+    }else if(pr.t==='l'){
+      const s=P[0][2];
+      o+=`<polyline points="${pts(P)}" fill="none" stroke="${pr.s}" stroke-opacity="${pr.o==null?1:pr.o}" stroke-width="${f1((pr.w||1)*s*100)/100}" stroke-linecap="round"${pr.da?` stroke-dasharray="${pr.da}"`:''}/>`;
+    }else if(pr.t==='b'){
+      const p=P[0],r=f1(pr.r*p[2]);
+      o+=`<circle cx="${f1(p[0])}" cy="${f1(p[1])}" r="${r}" fill="${pr.fill}"${pr.s?` stroke="${pr.s}" stroke-width="${pr.sw||1.5}"`:''}${pr.op!=null?` opacity="${pr.op}"`:''}/>`;
+      if(pr.lab)o+=`<text x="${f1(p[0])}" y="${f1(p[1]+4*p[2])}" font-size="${f1(11*p[2])}" fill="${pr.lc||'#ffe0e7'}"${pr.lw?` font-weight="${pr.lw}"`:''} text-anchor="middle" font-family="JetBrains Mono,monospace">${pr.lab}</text>`;
+    }else if(pr.t==='tx'){
+      const p=P[0];
+      o+=`<text x="${f1(p[0])}" y="${f1(p[1])}" font-size="${f1(pr.fs*p[2])}" fill="${pr.fill}" text-anchor="${pr.a||'middle'}" font-family="${pr.ff||'Outfit,sans-serif'}"${pr.fw?` font-weight="${pr.fw}"`:''}${pr.op!=null?` opacity="${pr.op}"`:''}>${pr.s}</text>`;
+    }
+  }
+  this.g.innerHTML=o;
+};
+
+/* ---------- 1. Les probabilités : la cloche en relief, la barre à 98,4 % ---------- */
+function probas(){
+  const Y0=-72,H=r=>128*Math.exp(-r*r/(2*38*38)),o=[];
+  o.push({t:'poly',p:ring(108,Y0,64,0,2*Math.PI),fill:'url(#d3cyFloor)',b:-3000});
+  o.push(...segs(ring(122,Y0,96,0,2*Math.PI),{s:'#3dd8ff',o:.45,w:1,b:-2900,da:'2 6'},96));
+  const surf=(r,a)=>[r*Math.cos(a),Y0+H(r),r*Math.sin(a)];
+  for(let r=14;r<=108;r+=13){const h=H(r);o.push(...segs(ring(r,0,40,0,2*Math.PI,surf),{s:'#e9fbff',o:.2+.55*h/128,w:1}));}
+  for(let i=0;i<28;i++){const a=i/28*2*Math.PI,P=[];for(let r=6;r<=110;r+=8)P.push(surf(r,a));o.push(...segs(P,{s:'#bff4ff',o:.3,w:.9}));}
+  o.push(...box(0,0,26,152,Y0,[233,251,255],.93,'#ffffff'));
+  const sm=[[56,.35,20,16],[60,3.5,13,14],[84,1.9,7,12],[86,5.1,6,12]];
+  for(const [r,a,h,w] of sm)o.push(...box(r*Math.cos(a),r*Math.sin(a),w,h,Y0,[160,236,255],.75));
+  for(let i=0;i<14;i++){const a=i/14*2*Math.PI+.2,r=98;o.push(...box(r*Math.cos(a),r*Math.sin(a),7,2+(i*7%4),Y0,[61,216,255],.4));}
+  o.push({t:'tx',p:[[0,Y0+152+14,0]],s:'« : »  98,4 %',fs:15,fw:600,fill:'#dff8ff',b:3000});
+  return o;
+}
+/* ---------- 2. Le gradient : la descente dans la cuvette de la perte ---------- */
+const K=.0066,B=1.45,YM=-82,loss=(x,z)=>YM+K*(x*x+B*z*z);
+function bez(P,n){const o=[];for(let s=0;s<P.length-1;s+=3){const[a,b,c,d]=[P[s],P[s+1],P[s+2],P[s+3]];for(let i=(s?1:0);i<=n;i++){const t=i/n,u=1-t;o.push([0,1].map(j=>u*u*u*a[j]+3*u*u*t*b[j]+3*u*t*t*c[j]+t*t*t*d[j]));}}return o;}
+const gp=bez([[52,92],[90,70],[150,60],[220,82],[290,105],[305,190],[262,238],[222,280],[150,270],[128,228],[108,190],[140,152],[180,156],[212,160],[214,190],[196,190]],30)
+  .map(([x,y])=>{const X=(x-196)*.68,Z=(y-190)*.68;return [X,loss(X,Z)+3,Z];});
+function gradient(){
+  const o=[],sb=Math.sqrt(B);
+  o.push({t:'poly',p:ring(150,YM-18,64,0,2*Math.PI,(r,a)=>[r*Math.cos(a),YM-18,r/sb*Math.sin(a)]),fill:'url(#d3goFloor)',b:-3000});
+  o.push(...segs(gp.map(p=>[p[0],YM-18,p[2]]),{s:'#ffd166',o:.18,w:1,b:-2900},200));
+  o.push({t:'b',p:[[0,YM,0]],r:62,fill:'url(#gGo3)',b:-2800});
+  const el=(a)=>(r,t)=>{const x=a*Math.cos(t),z=a/sb*Math.sin(t);return[x,loss(x,z),z];};
+  const ops=[.75,.55,.42,.32,.24,.18,.14];
+  [22,42,62,82,102,122,142].forEach((a,i)=>o.push(...segs(ring(0,0,48,0,2*Math.PI,el(a)),{s:'#ffd166',o:ops[i],w:1.1})));
+  for(let i=0;i<20;i++){const t=i/20*2*Math.PI,P=[];for(let a=0;a<=142;a+=10){const x=a*Math.cos(t),z=a/sb*Math.sin(t);P.push([x,loss(x,z),z]);}o.push(...segs(P,{s:'#ffd166',o:.1,w:.8}));}
+  for(let i=0;i<gp.length;i+=4)o.push({t:'b',p:[gp[i]],r:1.3,fill:'#fff1c4',op:.85});
+  for(const f of [.17,.34,.5,.63,.75,.84,.92]){const i=Math.round(f*(gp.length-1));o.push({t:'b',p:[gp[i]],r:4.4,fill:'#ffe2a0'});}
+  o.push({t:'b',p:[gp[gp.length-1]],r:6,fill:'#fff'});
+  o.push({t:'tx',p:[[gp[0][0]-6,gp[0][1]+12,gp[0][2]]],s:'perte 8,24',fs:10.5,ff:'JetBrains Mono,monospace',fill:'#ffe6a8',b:3000});
+  o.push({t:'tx',p:[[16,YM+10,12]],s:'4,39',fs:10.5,ff:'JetBrains Mono,monospace',fill:'#fff',a:'start',b:3000});
+  return o;
+}
+function gradDyn(t){
+  let u=(t/7)%1;u=u<.85?u/.85:1;const e=1-Math.pow(1-u,1.6),i=Math.min(gp.length-1,Math.floor(e*(gp.length-1)));
+  const p=gp[i],o=[{t:'b',p:[[p[0],p[1]+4,p[2]]],r:7,fill:'url(#d3ball)'},
+    {t:'l',p:[[p[0],p[1],p[2]],[p[0],YM-18,p[2]]],s:'#ff8a3d',o:.35,w:1,da:'2 3'},
+    {t:'b',p:[[p[0],YM-18,p[2]]],r:4,fill:'#ff8a3d',op:.3,b:-2850}];
+  return o;
+}
+/* ---------- 3. L'attention : les tokens en couronne, les liens en arches ---------- */
+const TOK=['To','␣be',',','␣be','␣to','␣not','␣or','?'],R3=122,Y3=-30;
+const NP=TOK.map((_,i)=>{const a=-Math.PI/2+i*Math.PI/4;return [R3*Math.cos(a),Y3+10*Math.sin(2*a),R3*Math.sin(a)];});
+const ED=[[0,1,.35,1],[0,2,.2,1],[1,2,.5,2],[7,3,.65,2.6],[6,3,.3,1],[4,3,.85,3],[5,3,.45,1.6],[2,3,.55,2],[6,7,.3,1],[5,6,.25,1],[0,7,.3,1]];
+const CTRL=[0,40,0];
+const arc=(a,b,t)=>{const u=1-t;return [0,1,2].map(j=>u*u*a[j]+2*u*t*CTRL[j]+t*t*b[j]);};
+function attention(){
+  const o=[];
+  o.push({t:'poly',p:ring(R3+14,-74,64,0,2*Math.PI),fill:'url(#d3rdFloor)',b:-3000});
+  o.push(...segs(ring(R3,-74,64,0,2*Math.PI),{s:'#ff4f6d',o:.3,w:1,b:-2900,da:'2 5'},64));
+  NP.forEach(p=>o.push({t:'l',p:[p,[p[0],-74,p[2]]],s:'#ff9db0',o:.25,w:1,da:'2 3'},{t:'b',p:[[p[0],-74,p[2]]],r:3,fill:'#ff4f6d',op:.5,b:-2800}));
+  for(const [a,b,op,w] of ED){const P=[];for(let i=0;i<=16;i++)P.push(arc(NP[a],NP[b],i/16));o.push(...segs(P,{s:'#ff9db0',o:op,w},2));}
+  NP.forEach((p,i)=>o.push(i===3?{t:'b',p:[p],r:24,fill:'url(#d3nodeHi)',s:'#ff4f6d',lab:TOK[i],lc:'#fff',lw:600}:{t:'b',p:[p],r:20,fill:'url(#d3node)',s:'#ff4f6d',lab:TOK[i]}));
+  return o;
+}
+function attDyn(t){
+  const r=46+3*Math.sin(t*2.1),o=[{t:'b',p:[[0,2,0]],r,fill:'url(#gRd3)'},
+    {t:'tx',p:[[0,6,0]],s:'Q·K',fs:10,fill:'#fff',ff:'JetBrains Mono,monospace',b:60},
+    {t:'tx',p:[[0,-8,0]],s:'÷ √32',fs:10,fill:'#fff',ff:'JetBrains Mono,monospace',b:60}];
+  ED.forEach(([a,b,op],k)=>{if(b!==3)return;const u=((t*.45+k*.37)%1);o.push({t:'b',p:[arc(NP[a],NP[b],u)],r:2.2+op*2,fill:'#ffe0e7',op:.4+op*.6});});
+  return o;
+}
+
+const DEFS={
+probas:`<radialGradient id="d3cyFloor"><stop offset="0" stop-color="#3dd8ff" stop-opacity=".55"/><stop offset=".55" stop-color="#0b5d8f" stop-opacity=".35"/><stop offset="1" stop-color="#05203a" stop-opacity=".05"/></radialGradient>`,
+gradient:`<radialGradient id="d3goFloor"><stop offset="0" stop-color="#b8651a" stop-opacity=".25"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<radialGradient id="gGo3" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff6d6"/><stop offset=".2" stop-color="#ffd166"/><stop offset=".6" stop-color="#b8651a" stop-opacity=".4"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<radialGradient id="d3ball" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="#ffe1c4"/><stop offset=".45" stop-color="#ff8a3d"/><stop offset="1" stop-color="#8a3a0c"/></radialGradient>`,
+attention:`<radialGradient id="d3rdFloor"><stop offset="0" stop-color="#ff4f6d" stop-opacity=".28"/><stop offset="1" stop-color="#7a1030" stop-opacity=".02"/></radialGradient>
+<radialGradient id="gRd3" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd0da"/><stop offset=".3" stop-color="#ff4f6d"/><stop offset=".75" stop-color="#7a1030" stop-opacity=".45"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<radialGradient id="d3node" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#6a1428"/><stop offset=".6" stop-color="#2a0712"/><stop offset="1" stop-color="#14030a"/></radialGradient>
+<radialGradient id="d3nodeHi" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#ff8ea3"/><stop offset=".55" stop-color="#b3213f"/><stop offset="1" stop-color="#4a0a1c"/></radialGradient>`};
+
+const CFG={
+  probas:{build:probas,pitch:.42,cx:180,cy:178,auto:t=>.55*Math.sin(t*.32)},
+  gradient:{build:gradient,dyn:gradDyn,pitch:.62,cx:180,cy:170,yaw0:.15,auto:t=>.5*Math.sin(t*.26)},
+  attention:{build:attention,dyn:attDyn,pitch:.55,cx:180,cy:172,auto:t=>t*.2}
+};
+
+const scenes=[];
+document.querySelectorAll('svg[data-3d]').forEach(svg=>{
+  const k=svg.getAttribute('data-3d');
+  const d=document.createElementNS(NS,'defs');d.innerHTML=DEFS[k];svg.insertBefore(d,svg.firstChild);
+  const over=svg.querySelector('template');let html='';if(over){html=over.innerHTML;over.remove();}
+  scenes.push(new Scene(svg,Object.assign({over:html},CFG[k])));
+});
+const t0=performance.now();let vis=true;
+document.addEventListener('visibilitychange',()=>{vis=!document.hidden;});
+function loop(now){if(vis){const t=Math.max(0,(now-t0)/1000);for(const s of scenes){const r=s.svg.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight)s.frame(t);}}requestAnimationFrame(loop);}
+scenes.forEach(s=>s.frame(0));requestAnimationFrame(loop);
+})();
